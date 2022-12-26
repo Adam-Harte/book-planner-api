@@ -1,0 +1,70 @@
+{
+  "name": "book-planner",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "description": "REST API for book planner app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/src/index.js",
+    "build": "tsc",
+    "dev": "nodemon",
+    "lint": "eslint . --ext .ts --ignore-pattern node_modules/",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "prettier --write \"src/**/*.{ts,json}\"",
+    "prettier:check": "prettier --check \"src/**/*.{ts,json}\"",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adam-Harte/book-planner-api.git"
+  },
+  "author": "Adam Harte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adam-Harte/book-planner-api/issues"
+  },
+  "homepage": "https://github.com/Adam-Harte/book-planner-api#readme",
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.15",
+    "@types/helmet": "^4.0.0",
+    "@types/jest": "^29.2.4",
+    "@types/node": "^18.11.17",
+    "@typescript-eslint/eslint-plugin": "^5.47.0",
+    "@typescript-eslint/parser": "^5.47.1",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.1",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.3",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "helmet": "^6.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "pg": "^8.8.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.11"
+  }
+}

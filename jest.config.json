@@ -1,0 +1,16 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "coverageDirectory": "coverage",
+  "collectCoverageFrom": ["src/**/*.{js,ts}"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 90,
+      "functions": 90,
+      "lines": 90,
+      "statements": 90
+    }
+  },
+  "moduleDirectories": ["node_modules", "src"],
+  "setupFiles": ["dotenv/config"]
+}
