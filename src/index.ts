@@ -14,6 +14,7 @@ import { PlotReferences } from './models/plotReferences';
 import { Plots } from './models/plots';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
+import { Technology } from './models/technology';
 import { Users } from './models/users';
 import { Weapons } from './models/weapons';
 import { Worlds } from './models/worlds';
@@ -49,6 +50,7 @@ const AppDataSource = new DataSource({
     PlotReferences,
     MagicSystems,
     Weapons,
+    Technology,
   ],
   migrations: [],
   synchronize: true,
