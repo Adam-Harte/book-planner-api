@@ -7,6 +7,7 @@ import express from 'express';
 import helmet from 'helmet';
 import { DataSource } from 'typeorm';
 
+import { Battles } from './models/battles';
 import { Books } from './models/books';
 import { Characters } from './models/characters';
 import { MagicSystems } from './models/magicSystems';
@@ -53,6 +54,7 @@ const AppDataSource = new DataSource({
     Weapons,
     Technology,
     Transport,
+    Battles,
   ],
   migrations: [],
   synchronize: true,
