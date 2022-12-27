@@ -10,6 +10,7 @@ import { DataSource } from 'typeorm';
 import { Battles } from './models/battles';
 import { Books } from './models/books';
 import { Characters } from './models/characters';
+import { Creatures } from './models/creatures';
 import { Groups } from './models/groups';
 import { MagicSystems } from './models/magicSystems';
 import { PlotReferences } from './models/plotReferences';
@@ -57,6 +58,7 @@ const AppDataSource = new DataSource({
     Transport,
     Battles,
     Groups,
+    Creatures,
   ],
   migrations: [],
   synchronize: true,
