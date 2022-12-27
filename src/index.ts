@@ -15,6 +15,7 @@ import { Groups } from './models/groups';
 import { MagicSystems } from './models/magicSystems';
 import { PlotReferences } from './models/plotReferences';
 import { Plots } from './models/plots';
+import { Races } from './models/races';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
 import { Technology } from './models/technology';
@@ -59,6 +60,7 @@ const AppDataSource = new DataSource({
     Battles,
     Groups,
     Creatures,
+    Races,
   ],
   migrations: [],
   synchronize: true,
