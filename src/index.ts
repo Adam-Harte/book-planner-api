@@ -15,6 +15,7 @@ import { Plots } from './models/plots';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
 import { Users } from './models/users';
+import { Weapons } from './models/weapons';
 import { Worlds } from './models/worlds';
 
 dotenv.config();
@@ -47,6 +48,7 @@ const AppDataSource = new DataSource({
     Plots,
     PlotReferences,
     MagicSystems,
+    Weapons,
   ],
   migrations: [],
   synchronize: true,
