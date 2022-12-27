@@ -40,6 +40,7 @@
 	"rules": {
 		"prettier/prettier": ["error", { "endOfLine": "auto" }],
 		"import/extensions": "off",
+		"import/prefer-default-export": "off",
 		"simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error"
 	}

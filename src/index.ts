@@ -7,6 +7,8 @@ import express from 'express';
 import helmet from 'helmet';
 import { DataSource } from 'typeorm';
 
+import { Users } from './models/users';
+
 dotenv.config();
 
 if (!process.env.PORT) {
@@ -27,7 +29,7 @@ const AppDataSource = new DataSource({
   username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [],
+  entities: [Users],
   migrations: [],
   synchronize: true,
   logging: false,
