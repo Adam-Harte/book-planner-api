@@ -88,3 +88,16 @@ export enum PlotReferenceTypes {
   LEGENDS = 'legends',
   HISTORIES = 'histories',
 }
+
+export enum GroupType {
+  ARMY = 'army',
+  HUNTERS = 'hunters',
+  COMPANIONS = 'companions',
+  REBELS = 'rebels',
+  MERCENARIES = 'mercenaries',
+  BANDITS = 'bandits',
+  GANG = 'gang',
+  PIRATES = 'pirates',
+  FACTION = 'faction',
+  SLAVES = 'slaves',
+}
