@@ -9,6 +9,7 @@ import { DataSource } from 'typeorm';
 
 import { Books } from './models/books';
 import { Characters } from './models/characters';
+import { PlotReferences } from './models/plotReferences';
 import { Plots } from './models/plots';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
@@ -35,7 +36,16 @@ const AppDataSource = new DataSource({
   username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [Users, Series, Books, Characters, Settings, Worlds, Plots],
+  entities: [
+    Users,
+    Series,
+    Books,
+    Characters,
+    Settings,
+    Worlds,
+    Plots,
+    PlotReferences,
+  ],
   migrations: [],
   synchronize: true,
   logging: false,
