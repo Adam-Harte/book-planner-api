@@ -72,3 +72,19 @@ export enum PlotType {
   CHARACTER_ARC = 'character_arc',
   PLOT_TWIST = 'plot_twist',
 }
+
+export enum PlotReferenceTypes {
+  MAGIC_SYSTEMS = 'magic_systems',
+  WEAPONS = 'weapons',
+  BATTLES = 'battles',
+  GROUPS = 'groups',
+  CREATURES = 'creatures',
+  RACES = 'races',
+  FAMILIES = 'families',
+  GOVERNMENTS = 'governments',
+  RELIGIONS = 'religions',
+  GODS = 'gods',
+  ARTIFACTS = 'artifacts',
+  LEGENDS = 'legends',
+  HISTORIES = 'histories',
+}
