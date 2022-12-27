@@ -9,6 +9,7 @@ import { DataSource } from 'typeorm';
 
 import { Books } from './models/books';
 import { Characters } from './models/characters';
+import { MagicSystems } from './models/magicSystems';
 import { PlotReferences } from './models/plotReferences';
 import { Plots } from './models/plots';
 import { Series } from './models/series';
@@ -45,6 +46,7 @@ const AppDataSource = new DataSource({
     Worlds,
     Plots,
     PlotReferences,
+    MagicSystems,
   ],
   migrations: [],
   synchronize: true,
