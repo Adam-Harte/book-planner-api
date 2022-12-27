@@ -8,6 +8,7 @@ import helmet from 'helmet';
 import { DataSource } from 'typeorm';
 
 import { Books } from './models/books';
+import { Characters } from './models/characters';
 import { Series } from './models/series';
 import { Users } from './models/users';
 
@@ -31,7 +32,7 @@ const AppDataSource = new DataSource({
   username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: [Users, Series, Books],
+  entities: [Users, Series, Books, Characters],
   migrations: [],
   synchronize: true,
   logging: false,
