@@ -15,6 +15,7 @@ import { Plots } from './models/plots';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
 import { Technology } from './models/technology';
+import { Transport } from './models/transport';
 import { Users } from './models/users';
 import { Weapons } from './models/weapons';
 import { Worlds } from './models/worlds';
@@ -51,6 +52,7 @@ const AppDataSource = new DataSource({
     MagicSystems,
     Weapons,
     Technology,
+    Transport,
   ],
   migrations: [],
   synchronize: true,
