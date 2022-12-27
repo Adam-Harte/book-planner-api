@@ -52,3 +52,17 @@ export enum WeightMetric {
   KILOS = 'kg',
   STONE = 'st',
 }
+
+export enum SizeMetric {
+  METRES = 'sqmt',
+  FEET = 'sqft',
+}
+
+export enum SettingType {
+  REGION = 'region',
+  CITY = 'city',
+  TOWN = 'town',
+  VILLAGE = 'village',
+  LAND = 'land',
+  BUILDING = 'building',
+}
