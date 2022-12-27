@@ -9,7 +9,7 @@ import {
 import { Genre } from './types/enums';
 
 @Entity()
-export class Series {
+export class Books {
   @PrimaryGeneratedColumn()
   id: number;
 
