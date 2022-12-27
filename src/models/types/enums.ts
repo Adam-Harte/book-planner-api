@@ -66,3 +66,9 @@ export enum SettingType {
   LAND = 'land',
   BUILDING = 'building',
 }
+
+export enum PlotType {
+  STORY_ARC = 'story_arc',
+  CHARACTER_ARC = 'character_arc',
+  PLOT_TWIST = 'plot_twist',
+}
