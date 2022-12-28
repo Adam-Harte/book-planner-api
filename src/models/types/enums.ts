@@ -101,3 +101,9 @@ export enum GroupType {
   FACTION = 'faction',
   SLAVES = 'slaves',
 }
+
+export enum FamilyType {
+  ROYAL = 'royal',
+  NOBLE = 'noble',
+  COMMON = 'common',
+}
