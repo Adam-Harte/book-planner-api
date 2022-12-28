@@ -7,6 +7,7 @@ import express from 'express';
 import helmet from 'helmet';
 import { DataSource } from 'typeorm';
 
+import { Artifacts } from './models/artifacts';
 import { Battles } from './models/battles';
 import { Books } from './models/books';
 import { Characters } from './models/characters';
@@ -73,6 +74,7 @@ const AppDataSource = new DataSource({
     Governments,
     Religions,
     Gods,
+    Artifacts,
   ],
   migrations: [],
   synchronize: true,
