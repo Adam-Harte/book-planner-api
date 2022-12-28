@@ -17,6 +17,7 @@ import { Gods } from './models/gods';
 import { Governments } from './models/governments';
 import { Groups } from './models/groups';
 import { Languages } from './models/languages';
+import { Legends } from './models/legends';
 import { MagicSystems } from './models/magicSystems';
 import { PlotReferences } from './models/plotReferences';
 import { Plots } from './models/plots';
@@ -75,6 +76,7 @@ const AppDataSource = new DataSource({
     Religions,
     Gods,
     Artifacts,
+    Legends,
   ],
   migrations: [],
   synchronize: true,
