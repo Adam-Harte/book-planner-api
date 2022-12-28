@@ -20,6 +20,7 @@ import { Histories } from './models/histories';
 import { Languages } from './models/languages';
 import { Legends } from './models/legends';
 import { MagicSystems } from './models/magicSystems';
+import { Maps } from './models/maps';
 import { PlotReferences } from './models/plotReferences';
 import { Plots } from './models/plots';
 import { Races } from './models/races';
@@ -79,6 +80,7 @@ const AppDataSource = new DataSource({
     Artifacts,
     Legends,
     Histories,
+    Maps,
   ],
   migrations: [],
   synchronize: true,
