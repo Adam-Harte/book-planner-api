@@ -19,6 +19,7 @@ import { Plots } from './models/plots';
 import { Races } from './models/races';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
+import { Songs } from './models/songs';
 import { Technology } from './models/technology';
 import { Transport } from './models/transport';
 import { Users } from './models/users';
@@ -63,6 +64,7 @@ const AppDataSource = new DataSource({
     Creatures,
     Races,
     Languages,
+    Songs,
   ],
   migrations: [],
   synchronize: true,
