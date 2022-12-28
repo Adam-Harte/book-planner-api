@@ -19,6 +19,7 @@ import { MagicSystems } from './models/magicSystems';
 import { PlotReferences } from './models/plotReferences';
 import { Plots } from './models/plots';
 import { Races } from './models/races';
+import { Religions } from './models/religions';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
 import { Songs } from './models/songs';
@@ -69,6 +70,7 @@ const AppDataSource = new DataSource({
     Songs,
     Families,
     Governments,
+    Religions,
   ],
   migrations: [],
   synchronize: true,
