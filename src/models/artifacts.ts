@@ -1,5 +1,8 @@
-import { Column, Entity } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
 
+import { Series } from './series';
+import { Settings } from './settings';
 import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
@@ -9,4 +12,12 @@ export class Artifacts extends CommonWithImage {
     nullable: true,
   })
   age: number;
+
+  @ManyToOne(() => Series, (series) => series.artifacts)
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToOne(() => Settings, (settings) => settings.artifacts)
+  @JoinColumn({ name: 'setting_id' })
+  setting: Relation<Settings>;
 }

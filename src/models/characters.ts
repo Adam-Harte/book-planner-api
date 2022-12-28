@@ -1,6 +1,17 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-use-before-define */
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from 'typeorm';
 
+import { Families } from './families';
+import { Series } from './series';
+import { Settings } from './settings';
 import { Being } from './shared/being';
 import { CharacterGender, CharacterTitle, CharacterType } from './types/enums';
 
@@ -57,17 +68,17 @@ export class Characters extends Being {
 
   @ManyToOne(() => Characters, (characters) => characters.mothersChildren)
   @JoinColumn({ name: 'mother_id' })
-  mother: Characters;
+  mother: Relation<Characters>;
 
   @OneToMany(() => Characters, (characters) => characters.mother)
-  mothersChildren: Characters[];
+  mothersChildren: Relation<Characters>[];
 
   @ManyToOne(() => Characters, (characters) => characters.fathersChildren)
   @JoinColumn({ name: 'father_id' })
-  father: Characters;
+  father: Relation<Characters>;
 
   @OneToMany(() => Characters, (characters) => characters.father)
-  fathersChildren: Characters[];
+  fathersChildren: Relation<Characters>[];
 
   @Column({
     name: 'ally_ids',
@@ -82,4 +93,16 @@ export class Characters extends Being {
     nullable: true,
   })
   enemyIds: number[];
+
+  @ManyToOne(() => Series, (series) => series.characters)
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToOne(() => Settings, (settings) => settings.characters)
+  @JoinColumn({ name: 'setting_id' })
+  setting: Relation<Settings>;
+
+  @ManyToOne(() => Families, (families) => families.characters)
+  @JoinColumn({ name: 'family_id' })
+  family: Relation<Families>;
 }

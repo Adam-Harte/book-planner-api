@@ -1,7 +1,30 @@
-import { Column, Entity } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from 'typeorm';
 
+import { Artifacts } from './artifacts';
+import { Battles } from './battles';
+import { Characters } from './characters';
+import { Creatures } from './creatures';
+import { Families } from './families';
+import { Gods } from './gods';
+import { Governments } from './governments';
+import { Groups } from './groups';
+import { Histories } from './histories';
+import { Races } from './races';
+import { Religions } from './religions';
+import { Series } from './series';
 import { CommonWithImage } from './shared/commonWithImage';
+import { Technologies } from './technologies';
+import { Transports } from './transports';
 import { SettingType, SizeMetric } from './types/enums';
+import { Worlds } from './worlds';
 
 @Entity()
 export class Settings extends CommonWithImage {
@@ -25,4 +48,51 @@ export class Settings extends CommonWithImage {
     nullable: true,
   })
   type: SettingType;
+
+  @ManyToOne(() => Series, (series) => series.settings)
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToOne(() => Worlds, (worlds) => worlds.settings)
+  @JoinColumn({ name: 'world_id' })
+  world: Relation<Worlds>;
+
+  @OneToMany(() => Characters, (characters) => characters.setting)
+  characters: Relation<Characters>[];
+
+  @OneToMany(() => Technologies, (technologies) => technologies.setting)
+  technologies: Relation<Technologies>[];
+
+  @OneToMany(() => Transports, (transports) => transports.setting)
+  transports: Relation<Transports>[];
+
+  @OneToMany(() => Battles, (battles) => battles.setting)
+  battles: Relation<Battles>[];
+
+  @OneToMany(() => Groups, (groups) => groups.setting)
+  groups: Relation<Groups>[];
+
+  @OneToMany(() => Creatures, (creatures) => creatures.setting)
+  creatures: Relation<Creatures>[];
+
+  @OneToMany(() => Races, (races) => races.setting)
+  races: Relation<Races>[];
+
+  @OneToMany(() => Families, (families) => families.setting)
+  families: Relation<Families>[];
+
+  @OneToMany(() => Governments, (governments) => governments.setting)
+  governments: Relation<Governments>[];
+
+  @OneToMany(() => Religions, (religions) => religions.setting)
+  religions: Relation<Religions>[];
+
+  @OneToMany(() => Gods, (gods) => gods.setting)
+  gods: Relation<Gods>[];
+
+  @OneToMany(() => Artifacts, (artifacts) => artifacts.setting)
+  artifacts: Relation<Artifacts>[];
+
+  @OneToMany(() => Histories, (histories) => histories.setting)
+  histories: Relation<Histories>[];
 }

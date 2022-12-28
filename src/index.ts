@@ -28,8 +28,8 @@ import { Religions } from './models/religions';
 import { Series } from './models/series';
 import { Settings } from './models/settings';
 import { Songs } from './models/songs';
-import { Technology } from './models/technology';
-import { Transport } from './models/transport';
+import { Technologies } from './models/technologies';
+import { Transports } from './models/transports';
 import { Users } from './models/users';
 import { Weapons } from './models/weapons';
 import { Worlds } from './models/worlds';
@@ -65,8 +65,8 @@ const AppDataSource = new DataSource({
     PlotReferences,
     MagicSystems,
     Weapons,
-    Technology,
-    Transport,
+    Technologies,
+    Transports,
     Battles,
     Groups,
     Creatures,

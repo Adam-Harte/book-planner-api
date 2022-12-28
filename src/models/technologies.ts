@@ -4,22 +4,21 @@ import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
 import { Series } from './series';
 import { Settings } from './settings';
 import { CommonWithImage } from './shared/commonWithImage';
-import { GroupType } from './types/enums';
 
 @Entity()
-export class Groups extends CommonWithImage {
+export class Technologies extends CommonWithImage {
   @Column({
-    type: 'enum',
-    enum: GroupType,
+    type: 'varchar',
+    length: 50,
     nullable: true,
   })
-  type: GroupType;
+  inventor: string;
 
-  @ManyToOne(() => Series, (series) => series.battles)
+  @ManyToOne(() => Series, (series) => series.technologies)
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.battles)
+  @ManyToOne(() => Settings, (settings) => settings.technologies)
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 }

@@ -1,5 +1,8 @@
-import { Column, Entity } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
 
+import { Series } from './series';
+import { Settings } from './settings';
 import { Common } from './shared/common';
 
 @Entity()
@@ -9,4 +12,12 @@ export class Histories extends Common {
     nullable: true,
   })
   events: string;
+
+  @ManyToOne(() => Series, (series) => series.histories)
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToOne(() => Settings, (settings) => settings.histories)
+  @JoinColumn({ name: 'setting_id' })
+  setting: Relation<Settings>;
 }

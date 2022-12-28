@@ -1,5 +1,16 @@
-import { Column, Entity } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from 'typeorm';
 
+import { Characters } from './characters';
+import { Series } from './series';
+import { Settings } from './settings';
 import { CommonWithImage } from './shared/commonWithImage';
 import { FamilyType } from './types/enums';
 
@@ -25,4 +36,15 @@ export class Families extends CommonWithImage {
     nullable: true,
   })
   enemyIds: number[];
+
+  @ManyToOne(() => Series, (series) => series.families)
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToOne(() => Settings, (settings) => settings.families)
+  @JoinColumn({ name: 'setting_id' })
+  setting: Relation<Settings>;
+
+  @OneToMany(() => Characters, (characters) => characters.series)
+  characters: Relation<Characters>[];
 }

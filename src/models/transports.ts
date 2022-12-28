@@ -3,15 +3,15 @@ import { Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
 
 import { Series } from './series';
 import { Settings } from './settings';
-import { Common } from './shared/common';
+import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
-export class Governments extends Common {
-  @ManyToOne(() => Series, (series) => series.governments)
+export class Transports extends CommonWithImage {
+  @ManyToOne(() => Series, (series) => series.transports)
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.governments)
+  @ManyToOne(() => Settings, (settings) => settings.transports)
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 }

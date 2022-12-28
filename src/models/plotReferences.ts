@@ -1,5 +1,7 @@
-import { Column, Entity } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
 
+import { Series } from './series';
 import { CreatedAndUpdated } from './shared/createdAndUpdated';
 import { PlotReferenceTypes } from './types/enums';
 
@@ -24,4 +26,8 @@ export class PlotReferences extends CreatedAndUpdated {
     unique: true,
   })
   referenceId: number;
+
+  @ManyToOne(() => Series, (series) => series.plotReferences)
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
 }
