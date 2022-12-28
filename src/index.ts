@@ -12,6 +12,7 @@ import { Books } from './models/books';
 import { Characters } from './models/characters';
 import { Creatures } from './models/creatures';
 import { Families } from './models/families';
+import { Governments } from './models/governments';
 import { Groups } from './models/groups';
 import { Languages } from './models/languages';
 import { MagicSystems } from './models/magicSystems';
@@ -67,6 +68,7 @@ const AppDataSource = new DataSource({
     Languages,
     Songs,
     Families,
+    Governments,
   ],
   migrations: [],
   synchronize: true,
