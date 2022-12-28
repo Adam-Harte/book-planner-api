@@ -1,12 +1,12 @@
 import { Column, Entity } from 'typeorm';
 
-import { Common } from './shared/common';
+import { Common } from './common';
 
 @Entity()
-export class Histories extends Common {
+export class CommonWithImage extends Common {
   @Column({
     type: 'varchar',
     nullable: true,
   })
-  events: string;
+  image: string;
 }

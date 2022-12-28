@@ -1,24 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
+import { CommonWithImage } from './shared/commonWithImage';
 import { SettingType, SizeMetric } from './types/enums';
 
 @Entity()
-export class Settings {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
-  name: string;
-
+export class Settings extends CommonWithImage {
   @Column({
     type: 'float',
     nullable: true,
@@ -39,22 +25,4 @@ export class Settings {
     nullable: true,
   })
   type: SettingType;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  description: string;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  image: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

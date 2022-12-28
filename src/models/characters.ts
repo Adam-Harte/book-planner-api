@@ -1,28 +1,11 @@
 /* eslint-disable no-use-before-define */
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import {
-  CharacterGender,
-  CharacterTitle,
-  CharacterType,
-  HeightMetric,
-  WeightMetric,
-} from './types/enums';
+import { Being } from './shared/being';
+import { CharacterGender, CharacterTitle, CharacterType } from './types/enums';
 
 @Entity()
-export class Characters {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Characters extends Being {
   @Column({
     name: 'first_name',
     type: 'varchar',
@@ -66,48 +49,6 @@ export class Characters {
   gender: CharacterGender;
 
   @Column({
-    type: 'float',
-    nullable: true,
-  })
-  height: number;
-
-  @Column({
-    name: 'height_metric',
-    type: 'enum',
-    enum: HeightMetric,
-    nullable: true,
-  })
-  heightMetric: HeightMetric;
-
-  @Column({
-    type: 'float',
-    nullable: true,
-  })
-  weight: number;
-
-  @Column({
-    name: 'weight_metric',
-    type: 'enum',
-    enum: WeightMetric,
-    nullable: true,
-  })
-  weightMetric: WeightMetric;
-
-  @Column({
-    name: 'physical_description',
-    type: 'varchar',
-    nullable: true,
-  })
-  physicalDescription: string;
-
-  @Column({
-    name: 'personality_description',
-    type: 'varchar',
-    nullable: true,
-  })
-  personalityDescription: string;
-
-  @Column({
     name: 'character_arc',
     type: 'varchar',
     nullable: true,
@@ -141,16 +82,4 @@ export class Characters {
     nullable: true,
   })
   enemyIds: number[];
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  image: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

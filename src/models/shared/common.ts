@@ -1,9 +1,9 @@
 import { Column, Entity } from 'typeorm';
 
-import { CreatedAndUpdated } from './shared/createdAndUpdated';
+import { CreatedAndUpdated } from './createdAndUpdated';
 
 @Entity()
-export class Songs extends CreatedAndUpdated {
+export class Common extends CreatedAndUpdated {
   @Column({
     type: 'varchar',
     length: 50,
@@ -14,5 +14,5 @@ export class Songs extends CreatedAndUpdated {
     type: 'varchar',
     nullable: true,
   })
-  lyrics: string;
+  description: string;
 }

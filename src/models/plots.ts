@@ -1,24 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
+import { Common } from './shared/common';
 import { PlotType } from './types/enums';
 
 @Entity()
-export class Plots {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
-  name: string;
-
+export class Plots extends Common {
   @Column({
     type: 'enum',
     enum: PlotType,
@@ -31,16 +17,4 @@ export class Plots {
     nullable: true,
   })
   order: number;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  description: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

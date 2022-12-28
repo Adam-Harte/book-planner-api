@@ -1,37 +1,12 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
+
+import { Common } from './shared/common';
 
 @Entity()
-export class Races {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
-  name: string;
-
+export class Races extends Common {
   @Column({
     type: 'varchar',
     nullable: true,
   })
   traits: string;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  description: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

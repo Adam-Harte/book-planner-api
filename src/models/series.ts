@@ -1,18 +1,10 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
+import { CreatedAndUpdated } from './shared/createdAndUpdated';
 import { Genre } from './types/enums';
 
 @Entity()
-export class Series {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Series extends CreatedAndUpdated {
   @Column({
     type: 'varchar',
     length: 50,
@@ -25,10 +17,4 @@ export class Series {
     nullable: true,
   })
   genre: Genre;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }
