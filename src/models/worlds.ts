@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { Entity, ManyToOne, OneToMany, Relation } from 'typeorm';
+import { Entity, ManyToMany, ManyToOne, OneToMany, Relation } from 'typeorm';
 
 import { Books } from './books';
 import { Series } from './series';
@@ -11,9 +11,9 @@ export class Worlds extends Common {
   @ManyToOne(() => Series, (series) => series.worlds)
   series: Relation<Series>;
 
-  @OneToMany(() => Books, (books) => books.worlds)
-  books: Relation<Books>[];
-
   @OneToMany(() => Settings, (settings) => settings.world)
   settings: Relation<Settings>[];
+
+  @ManyToMany(() => Books, (books) => books.worlds)
+  books: Relation<Books>[];
 }

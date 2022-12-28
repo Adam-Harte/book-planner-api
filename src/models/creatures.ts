@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
-import { Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import { Entity, JoinColumn, ManyToMany, ManyToOne, Relation } from 'typeorm';
 
+import { Books } from './books';
 import { Series } from './series';
 import { Settings } from './settings';
 import { Being } from './shared/being';
@@ -14,4 +15,7 @@ export class Creatures extends Being {
   @ManyToOne(() => Settings, (settings) => settings.battles)
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
+
+  @ManyToMany(() => Books, (books) => books.creatures)
+  books: Relation<Books>[];
 }

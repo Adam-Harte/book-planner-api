@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
-import { Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import { Entity, JoinColumn, ManyToMany, ManyToOne, Relation } from 'typeorm';
 
+import { Books } from './books';
 import { Religions } from './religions';
 import { Series } from './series';
 import { Settings } from './settings';
@@ -19,4 +20,7 @@ export class Gods extends CommonWithImage {
   @ManyToOne(() => Religions, (religions) => religions.gods)
   @JoinColumn({ name: 'religion_id' })
   religion: Relation<Religions>;
+
+  @ManyToMany(() => Books, (books) => books.gods)
+  books: Relation<Books>[];
 }

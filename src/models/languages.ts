@@ -1,6 +1,8 @@
 /* eslint-disable import/no-cycle */
-import { Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import { Entity, JoinColumn, ManyToMany, ManyToOne, Relation } from 'typeorm';
 
+import { Books } from './books';
+import { Races } from './races';
 import { Series } from './series';
 import { Common } from './shared/common';
 
@@ -9,4 +11,10 @@ export class Languages extends Common {
   @ManyToOne(() => Series, (series) => series.battles)
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
+
+  @ManyToMany(() => Books, (books) => books.languages)
+  books: Relation<Books>[];
+
+  @ManyToMany(() => Races, (races) => races.languages)
+  races: Relation<Races>[];
 }

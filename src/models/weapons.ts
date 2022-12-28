@@ -1,6 +1,14 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
 
+import { Books } from './books';
 import { Series } from './series';
 import { CommonWithImage } from './shared/commonWithImage';
 
@@ -30,4 +38,7 @@ export class Weapons extends CommonWithImage {
   @ManyToOne(() => Series, (series) => series.weapons)
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
+
+  @ManyToMany(() => Books, (books) => books.weapons)
+  books: Relation<Books>[];
 }

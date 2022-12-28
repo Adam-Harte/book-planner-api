@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   Relation,
@@ -10,6 +11,7 @@ import {
 
 import { Artifacts } from './artifacts';
 import { Battles } from './battles';
+import { Books } from './books';
 import { Characters } from './characters';
 import { Creatures } from './creatures';
 import { Families } from './families';
@@ -17,6 +19,7 @@ import { Gods } from './gods';
 import { Governments } from './governments';
 import { Groups } from './groups';
 import { Histories } from './histories';
+import { Plots } from './plots';
 import { Races } from './races';
 import { Religions } from './religions';
 import { Series } from './series';
@@ -95,4 +98,10 @@ export class Settings extends CommonWithImage {
 
   @OneToMany(() => Histories, (histories) => histories.setting)
   histories: Relation<Histories>[];
+
+  @ManyToMany(() => Books, (books) => books.settings)
+  books: Relation<Books>[];
+
+  @ManyToMany(() => Plots, (plots) => plots.settings)
+  plots: Relation<Plots>[];
 }

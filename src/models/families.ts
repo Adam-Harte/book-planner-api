@@ -3,11 +3,13 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   Relation,
 } from 'typeorm';
 
+import { Books } from './books';
 import { Characters } from './characters';
 import { Series } from './series';
 import { Settings } from './settings';
@@ -47,4 +49,7 @@ export class Families extends CommonWithImage {
 
   @OneToMany(() => Characters, (characters) => characters.series)
   characters: Relation<Characters>[];
+
+  @ManyToMany(() => Books, (books) => books.families)
+  books: Relation<Books>[];
 }

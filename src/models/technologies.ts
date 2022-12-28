@@ -1,6 +1,14 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
 
+import { Books } from './books';
 import { Series } from './series';
 import { Settings } from './settings';
 import { CommonWithImage } from './shared/commonWithImage';
@@ -21,4 +29,7 @@ export class Technologies extends CommonWithImage {
   @ManyToOne(() => Settings, (settings) => settings.technologies)
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
+
+  @ManyToMany(() => Books, (books) => books.technologies)
+  books: Relation<Books>[];
 }

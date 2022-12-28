@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
-import { Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import { Entity, JoinColumn, ManyToMany, ManyToOne, Relation } from 'typeorm';
 
+import { Books } from './books';
 import { Series } from './series';
 import { Settings } from './settings';
 import { Common } from './shared/common';
@@ -14,4 +15,7 @@ export class Governments extends Common {
   @ManyToOne(() => Settings, (settings) => settings.governments)
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
+
+  @ManyToMany(() => Books, (books) => books.governments)
+  books: Relation<Books>[];
 }

@@ -1,5 +1,16 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
+import { Books } from './books';
+import { Characters } from './characters';
+import { Languages } from './languages';
 
 import { Series } from './series';
 import { Settings } from './settings';
@@ -20,4 +31,35 @@ export class Races extends Common {
   @ManyToOne(() => Settings, (settings) => settings.battles)
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
+
+  @ManyToMany(() => Characters)
+  @JoinTable({
+    name: 'races_characters',
+    joinColumn: {
+      name: 'race_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'character_id',
+      referencedColumnName: 'id',
+    },
+  })
+  characters: Relation<Characters>[];
+
+  @ManyToMany(() => Languages)
+  @JoinTable({
+    name: 'races_languages',
+    joinColumn: {
+      name: 'race_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'language_id',
+      referencedColumnName: 'id',
+    },
+  })
+  languages: Relation<Languages>[];
+
+  @ManyToMany(() => Books, (books) => books.races)
+  books: Relation<Books>[];
 }

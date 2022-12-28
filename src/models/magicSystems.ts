@@ -1,6 +1,14 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
 
+import { Books } from './books';
 import { Series } from './series';
 import { Common } from './shared/common';
 
@@ -15,4 +23,7 @@ export class MagicSystems extends Common {
   @ManyToOne(() => Series, (series) => series.magicSystems)
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
+
+  @ManyToMany(() => Books, (books) => books.magicSystems)
+  books: Relation<Books>[];
 }

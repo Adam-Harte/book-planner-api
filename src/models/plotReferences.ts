@@ -1,6 +1,14 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
 
+import { Plots } from './plots';
 import { Series } from './series';
 import { CreatedAndUpdated } from './shared/createdAndUpdated';
 import { PlotReferenceTypes } from './types/enums';
@@ -30,4 +38,7 @@ export class PlotReferences extends CreatedAndUpdated {
   @ManyToOne(() => Series, (series) => series.plotReferences)
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
+
+  @ManyToMany(() => Plots, (plots) => plots.plotReferences)
+  plots: Relation<Plots>[];
 }

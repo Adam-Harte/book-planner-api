@@ -4,12 +4,17 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   Relation,
 } from 'typeorm';
 
+import { Books } from './books';
 import { Families } from './families';
+import { Groups } from './groups';
+import { Plots } from './plots';
+import { Races } from './races';
 import { Series } from './series';
 import { Settings } from './settings';
 import { Being } from './shared/being';
@@ -105,4 +110,16 @@ export class Characters extends Being {
   @ManyToOne(() => Families, (families) => families.characters)
   @JoinColumn({ name: 'family_id' })
   family: Relation<Families>;
+
+  @ManyToMany(() => Books, (books) => books.characters)
+  books: Relation<Books>[];
+
+  @ManyToMany(() => Plots, (plots) => plots.characters)
+  plots: Relation<Plots>[];
+
+  @ManyToMany(() => Groups, (groups) => groups.characters)
+  groups: Relation<Groups>[];
+
+  @ManyToMany(() => Races, (races) => races.characters)
+  races: Relation<Races>[];
 }

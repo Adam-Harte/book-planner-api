@@ -1,5 +1,14 @@
 /* eslint-disable import/no-cycle */
-import { Column, Entity, JoinColumn, ManyToOne, Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
+import { Characters } from './characters';
 
 import { Series } from './series';
 import { Settings } from './settings';
@@ -22,4 +31,18 @@ export class Groups extends CommonWithImage {
   @ManyToOne(() => Settings, (settings) => settings.battles)
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
+
+  @ManyToMany(() => Characters)
+  @JoinTable({
+    name: 'groups_characters',
+    joinColumn: {
+      name: 'group_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'character_id',
+      referencedColumnName: 'id',
+    },
+  })
+  characters: Relation<Characters>[];
 }

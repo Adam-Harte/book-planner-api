@@ -1,6 +1,14 @@
 /* eslint-disable import/no-cycle */
-import { Entity, JoinColumn, ManyToOne, OneToMany, Relation } from 'typeorm';
+import {
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from 'typeorm';
 
+import { Books } from './books';
 import { Gods } from './gods';
 import { Series } from './series';
 import { Settings } from './settings';
@@ -18,4 +26,7 @@ export class Religions extends Common {
 
   @OneToMany(() => Gods, (gods) => gods.religion)
   gods: Relation<Gods>[];
+
+  @ManyToMany(() => Books, (books) => books.religions)
+  books: Relation<Books>[];
 }
