@@ -1,16 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
+
+import { CreatedAndUpdated } from './shared/createdAndUpdated';
 
 @Entity()
-export class Users {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Users extends CreatedAndUpdated {
   @Column({
     unique: true,
     type: 'varchar',
@@ -29,10 +22,4 @@ export class Users {
     length: 20,
   })
   password: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

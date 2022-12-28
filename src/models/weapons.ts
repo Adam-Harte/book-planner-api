@@ -1,28 +1,9 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
+
+import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
-export class Weapons {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
-  name: string;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  description: string;
-
+export class Weapons extends CommonWithImage {
   @Column({
     type: 'varchar',
     length: 50,
@@ -43,16 +24,4 @@ export class Weapons {
     nullable: true,
   })
   forged: string;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  image: string;
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }

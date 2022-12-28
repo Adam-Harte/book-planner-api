@@ -1,36 +1,16 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
+import { CommonWithImage } from './shared/commonWithImage';
 import { FamilyType } from './types/enums';
 
 @Entity()
-export class Families {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({
-    type: 'varchar',
-    length: 50,
-  })
-  name: string;
-
+export class Families extends CommonWithImage {
   @Column({
     type: 'enum',
     enum: FamilyType,
     nullable: true,
   })
   type: FamilyType;
-
-  @Column({
-    type: 'varchar',
-    nullable: true,
-  })
-  description: string;
 
   @Column({
     name: 'ally_ids',
@@ -45,10 +25,4 @@ export class Families {
     nullable: true,
   })
   enemyIds: number[];
-
-  @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updatedAt: Date;
 }
