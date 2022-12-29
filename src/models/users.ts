@@ -22,7 +22,6 @@ export class Users extends CreatedAndUpdated {
 
   @Column({
     type: 'varchar',
-    length: 20,
   })
   password: string;
 
