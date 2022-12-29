@@ -8,10 +8,10 @@ import {
   ManyToOne,
   Relation,
 } from 'typeorm';
+
 import { Books } from './books';
 import { Characters } from './characters';
 import { Languages } from './languages';
-
 import { Series } from './series';
 import { Settings } from './settings';
 import { Common } from './shared/common';
@@ -24,11 +24,15 @@ export class Races extends Common {
   })
   traits: string;
 
-  @ManyToOne(() => Series, (series) => series.battles)
+  @ManyToOne(() => Series, (series) => series.races, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.battles)
+  @ManyToOne(() => Settings, (settings) => settings.races, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 

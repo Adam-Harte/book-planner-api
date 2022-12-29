@@ -16,15 +16,21 @@ import { Common } from './shared/common';
 
 @Entity()
 export class Religions extends Common {
-  @ManyToOne(() => Series, (series) => series.religions)
+  @ManyToOne(() => Series, (series) => series.religions, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.religions)
+  @ManyToOne(() => Settings, (settings) => settings.religions, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @OneToMany(() => Gods, (gods) => gods.religion)
+  @OneToMany(() => Gods, (gods) => gods.religion, {
+    onDelete: 'SET NULL',
+  })
   gods: Relation<Gods>[];
 
   @ManyToMany(() => Books, (books) => books.religions, {

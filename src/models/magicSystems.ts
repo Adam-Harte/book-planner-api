@@ -20,7 +20,9 @@ export class MagicSystems extends Common {
   })
   rules: string;
 
-  @ManyToOne(() => Series, (series) => series.magicSystems)
+  @ManyToOne(() => Series, (series) => series.magicSystems, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 

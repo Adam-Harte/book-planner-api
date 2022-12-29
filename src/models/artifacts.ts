@@ -21,11 +21,15 @@ export class Artifacts extends CommonWithImage {
   })
   age: number;
 
-  @ManyToOne(() => Series, (series) => series.artifacts)
+  @ManyToOne(() => Series, (series) => series.artifacts, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.artifacts)
+  @ManyToOne(() => Settings, (settings) => settings.artifacts, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 

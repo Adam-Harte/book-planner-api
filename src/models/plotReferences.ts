@@ -35,7 +35,9 @@ export class PlotReferences extends CreatedAndUpdated {
   })
   referenceId: number;
 
-  @ManyToOne(() => Series, (series) => series.plotReferences)
+  @ManyToOne(() => Series, (series) => series.plotReferences, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 

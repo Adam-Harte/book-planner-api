@@ -35,7 +35,9 @@ export class Weapons extends CommonWithImage {
   })
   forged: string;
 
-  @ManyToOne(() => Series, (series) => series.weapons)
+  @ManyToOne(() => Series, (series) => series.weapons, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 

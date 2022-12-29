@@ -32,11 +32,15 @@ export class Plots extends Common {
   })
   order: number;
 
-  @ManyToOne(() => Series, (series) => series.plots)
+  @ManyToOne(() => Series, (series) => series.plots, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Books, (books) => books.plots)
+  @ManyToOne(() => Books, (books) => books.plots, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'book_id' })
   book: Relation<Books>;
 

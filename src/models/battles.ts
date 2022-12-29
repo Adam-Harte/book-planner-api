@@ -29,11 +29,15 @@ export class Battles extends Common {
   })
   end: string;
 
-  @ManyToOne(() => Series, (series) => series.battles)
+  @ManyToOne(() => Series, (series) => series.battles, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.battles)
+  @ManyToOne(() => Settings, (settings) => settings.battles, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 

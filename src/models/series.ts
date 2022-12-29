@@ -51,79 +51,129 @@ export class Series extends CreatedAndUpdated {
   })
   genre: Genre;
 
-  @ManyToOne(() => Users, (users) => users.series)
+  @ManyToOne(() => Users, (users) => users.series, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'user_id' })
   user: Relation<Users>;
 
-  @OneToMany(() => Books, (books) => books.series)
+  @OneToMany(() => Books, (books) => books.series, {
+    onDelete: 'SET NULL',
+  })
   books: Relation<Books>[];
 
-  @OneToMany(() => Settings, (settings) => settings.series)
+  @OneToMany(() => Settings, (settings) => settings.series, {
+    onDelete: 'SET NULL',
+  })
   settings: Relation<Settings>[];
 
-  @OneToMany(() => Worlds, (worlds) => worlds.series)
+  @OneToMany(() => Worlds, (worlds) => worlds.series, {
+    onDelete: 'SET NULL',
+  })
   worlds: Relation<Worlds>[];
 
-  @OneToMany(() => Characters, (characters) => characters.series)
+  @OneToMany(() => Characters, (characters) => characters.series, {
+    onDelete: 'SET NULL',
+  })
   characters: Relation<Characters>[];
 
-  @OneToMany(() => Plots, (plots) => plots.series)
+  @OneToMany(() => Plots, (plots) => plots.series, {
+    onDelete: 'SET NULL',
+  })
   plots: Relation<Plots>[];
 
-  @OneToMany(() => PlotReferences, (plotReferences) => plotReferences.series)
+  @OneToMany(() => PlotReferences, (plotReferences) => plotReferences.series, {
+    onDelete: 'SET NULL',
+  })
   plotReferences: Relation<PlotReferences>[];
 
-  @OneToMany(() => MagicSystems, (magicSystems) => magicSystems.series)
+  @OneToMany(() => MagicSystems, (magicSystems) => magicSystems.series, {
+    onDelete: 'SET NULL',
+  })
   magicSystems: Relation<MagicSystems>[];
 
-  @OneToMany(() => Weapons, (weapons) => weapons.series)
+  @OneToMany(() => Weapons, (weapons) => weapons.series, {
+    onDelete: 'SET NULL',
+  })
   weapons: Relation<Weapons>[];
 
-  @OneToMany(() => Technologies, (technologies) => technologies.series)
+  @OneToMany(() => Technologies, (technologies) => technologies.series, {
+    onDelete: 'SET NULL',
+  })
   technologies: Relation<Technologies>[];
 
-  @OneToMany(() => Transports, (transports) => transports.series)
+  @OneToMany(() => Transports, (transports) => transports.series, {
+    onDelete: 'SET NULL',
+  })
   transports: Relation<Transports>[];
 
-  @OneToMany(() => Battles, (battles) => battles.series)
+  @OneToMany(() => Battles, (battles) => battles.series, {
+    onDelete: 'SET NULL',
+  })
   battles: Relation<Battles>[];
 
-  @OneToMany(() => Groups, (groups) => groups.series)
+  @OneToMany(() => Groups, (groups) => groups.series, {
+    onDelete: 'SET NULL',
+  })
   groups: Relation<Groups>[];
 
-  @OneToMany(() => Creatures, (creatures) => creatures.series)
+  @OneToMany(() => Creatures, (creatures) => creatures.series, {
+    onDelete: 'SET NULL',
+  })
   creatures: Relation<Creatures>[];
 
-  @OneToMany(() => Races, (races) => races.series)
+  @OneToMany(() => Races, (races) => races.series, {
+    onDelete: 'SET NULL',
+  })
   races: Relation<Races>[];
 
-  @OneToMany(() => Languages, (languages) => languages.series)
+  @OneToMany(() => Languages, (languages) => languages.series, {
+    onDelete: 'SET NULL',
+  })
   languages: Relation<Languages>[];
 
-  @OneToMany(() => Songs, (songs) => songs.series)
+  @OneToMany(() => Songs, (songs) => songs.series, {
+    onDelete: 'SET NULL',
+  })
   songs: Relation<Songs>[];
 
-  @OneToMany(() => Families, (families) => families.series)
+  @OneToMany(() => Families, (families) => families.series, {
+    onDelete: 'SET NULL',
+  })
   families: Relation<Families>[];
 
-  @OneToMany(() => Governments, (governments) => governments.series)
+  @OneToMany(() => Governments, (governments) => governments.series, {
+    onDelete: 'SET NULL',
+  })
   governments: Relation<Governments>[];
 
-  @OneToMany(() => Religions, (religions) => religions.series)
+  @OneToMany(() => Religions, (religions) => religions.series, {
+    onDelete: 'SET NULL',
+  })
   religions: Relation<Religions>[];
 
-  @OneToMany(() => Gods, (gods) => gods.series)
+  @OneToMany(() => Gods, (gods) => gods.series, {
+    onDelete: 'SET NULL',
+  })
   gods: Relation<Gods>[];
 
-  @OneToMany(() => Artifacts, (artifacts) => artifacts.series)
+  @OneToMany(() => Artifacts, (artifacts) => artifacts.series, {
+    onDelete: 'SET NULL',
+  })
   artifacts: Relation<Artifacts>[];
 
-  @OneToMany(() => Legends, (legends) => legends.series)
+  @OneToMany(() => Legends, (legends) => legends.series, {
+    onDelete: 'SET NULL',
+  })
   legends: Relation<Legends>[];
 
-  @OneToMany(() => Histories, (histories) => histories.series)
+  @OneToMany(() => Histories, (histories) => histories.series, {
+    onDelete: 'SET NULL',
+  })
   histories: Relation<Histories>[];
 
-  @OneToMany(() => Maps, (maps) => maps.series)
+  @OneToMany(() => Maps, (maps) => maps.series, {
+    onDelete: 'SET NULL',
+  })
   maps: Relation<Maps>[];
 }

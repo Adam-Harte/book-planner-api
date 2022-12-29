@@ -22,11 +22,15 @@ export class Technologies extends CommonWithImage {
   })
   inventor: string;
 
-  @ManyToOne(() => Series, (series) => series.technologies)
+  @ManyToOne(() => Series, (series) => series.technologies, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.technologies)
+  @ManyToOne(() => Settings, (settings) => settings.technologies, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 

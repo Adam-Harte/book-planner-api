@@ -39,15 +39,21 @@ export class Families extends CommonWithImage {
   })
   enemyIds: number[];
 
-  @ManyToOne(() => Series, (series) => series.families)
+  @ManyToOne(() => Series, (series) => series.families, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.families)
+  @ManyToOne(() => Settings, (settings) => settings.families, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @OneToMany(() => Characters, (characters) => characters.series)
+  @OneToMany(() => Characters, (characters) => characters.series, {
+    onDelete: 'SET NULL',
+  })
   characters: Relation<Characters>[];
 
   @ManyToMany(() => Books, (books) => books.families, {

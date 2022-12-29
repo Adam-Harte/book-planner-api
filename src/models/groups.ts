@@ -24,11 +24,15 @@ export class Groups extends CommonWithImage {
   })
   type: GroupType;
 
-  @ManyToOne(() => Series, (series) => series.battles)
+  @ManyToOne(() => Series, (series) => series.groups, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.battles)
+  @ManyToOne(() => Settings, (settings) => settings.groups, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 

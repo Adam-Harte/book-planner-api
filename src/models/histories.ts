@@ -21,11 +21,15 @@ export class Histories extends Common {
   })
   events: string;
 
-  @ManyToOne(() => Series, (series) => series.histories)
+  @ManyToOne(() => Series, (series) => series.histories, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.histories)
+  @ManyToOne(() => Settings, (settings) => settings.histories, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 

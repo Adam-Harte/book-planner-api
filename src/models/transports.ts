@@ -8,11 +8,15 @@ import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
 export class Transports extends CommonWithImage {
-  @ManyToOne(() => Series, (series) => series.transports)
+  @ManyToOne(() => Series, (series) => series.transports, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.transports)
+  @ManyToOne(() => Settings, (settings) => settings.transports, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 

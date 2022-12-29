@@ -26,7 +26,9 @@ export class Songs extends CreatedAndUpdated {
   })
   lyrics: string;
 
-  @ManyToOne(() => Series, (series) => series.battles)
+  @ManyToOne(() => Series, (series) => series.songs, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 

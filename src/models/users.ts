@@ -26,9 +26,13 @@ export class Users extends CreatedAndUpdated {
   })
   password: string;
 
-  @OneToMany(() => Series, (series) => series.user)
+  @OneToMany(() => Series, (series) => series.user, {
+    onDelete: 'SET NULL',
+  })
   series: Relation<Series>[];
 
-  @OneToMany(() => Books, (books) => books.user)
+  @OneToMany(() => Books, (books) => books.user, {
+    onDelete: 'SET NULL',
+  })
   books: Relation<Books>[];
 }

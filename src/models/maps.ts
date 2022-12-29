@@ -7,7 +7,9 @@ import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
 export class Maps extends CommonWithImage {
-  @ManyToOne(() => Series, (series) => series.maps)
+  @ManyToOne(() => Series, (series) => series.maps, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 

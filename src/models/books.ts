@@ -51,15 +51,21 @@ export class Books extends CreatedAndUpdated {
   })
   genre: Genre;
 
-  @ManyToOne(() => Users, (users) => users.books)
+  @ManyToOne(() => Users, (users) => users.books, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'user_id' })
   user: Relation<Users>;
 
-  @ManyToOne(() => Series, (series) => series.books)
+  @ManyToOne(() => Series, (series) => series.books, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @OneToMany(() => Plots, (plots) => plots.book)
+  @OneToMany(() => Plots, (plots) => plots.book, {
+    onDelete: 'SET NULL',
+  })
   plots: Relation<Plots>[];
 
   @ManyToMany(() => Characters, (characters) => characters.books, {

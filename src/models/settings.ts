@@ -52,51 +52,81 @@ export class Settings extends CommonWithImage {
   })
   type: SettingType;
 
-  @ManyToOne(() => Series, (series) => series.settings)
+  @ManyToOne(() => Series, (series) => series.settings, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Worlds, (worlds) => worlds.settings)
+  @ManyToOne(() => Worlds, (worlds) => worlds.settings, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'world_id' })
   world: Relation<Worlds>;
 
-  @OneToMany(() => Characters, (characters) => characters.setting)
+  @OneToMany(() => Characters, (characters) => characters.setting, {
+    onDelete: 'SET NULL',
+  })
   characters: Relation<Characters>[];
 
-  @OneToMany(() => Technologies, (technologies) => technologies.setting)
+  @OneToMany(() => Technologies, (technologies) => technologies.setting, {
+    onDelete: 'SET NULL',
+  })
   technologies: Relation<Technologies>[];
 
-  @OneToMany(() => Transports, (transports) => transports.setting)
+  @OneToMany(() => Transports, (transports) => transports.setting, {
+    onDelete: 'SET NULL',
+  })
   transports: Relation<Transports>[];
 
-  @OneToMany(() => Battles, (battles) => battles.setting)
+  @OneToMany(() => Battles, (battles) => battles.setting, {
+    onDelete: 'SET NULL',
+  })
   battles: Relation<Battles>[];
 
-  @OneToMany(() => Groups, (groups) => groups.setting)
+  @OneToMany(() => Groups, (groups) => groups.setting, {
+    onDelete: 'SET NULL',
+  })
   groups: Relation<Groups>[];
 
-  @OneToMany(() => Creatures, (creatures) => creatures.setting)
+  @OneToMany(() => Creatures, (creatures) => creatures.setting, {
+    onDelete: 'SET NULL',
+  })
   creatures: Relation<Creatures>[];
 
-  @OneToMany(() => Races, (races) => races.setting)
+  @OneToMany(() => Races, (races) => races.setting, {
+    onDelete: 'SET NULL',
+  })
   races: Relation<Races>[];
 
-  @OneToMany(() => Families, (families) => families.setting)
+  @OneToMany(() => Families, (families) => families.setting, {
+    onDelete: 'SET NULL',
+  })
   families: Relation<Families>[];
 
-  @OneToMany(() => Governments, (governments) => governments.setting)
+  @OneToMany(() => Governments, (governments) => governments.setting, {
+    onDelete: 'SET NULL',
+  })
   governments: Relation<Governments>[];
 
-  @OneToMany(() => Religions, (religions) => religions.setting)
+  @OneToMany(() => Religions, (religions) => religions.setting, {
+    onDelete: 'SET NULL',
+  })
   religions: Relation<Religions>[];
 
-  @OneToMany(() => Gods, (gods) => gods.setting)
+  @OneToMany(() => Gods, (gods) => gods.setting, {
+    onDelete: 'SET NULL',
+  })
   gods: Relation<Gods>[];
 
-  @OneToMany(() => Artifacts, (artifacts) => artifacts.setting)
+  @OneToMany(() => Artifacts, (artifacts) => artifacts.setting, {
+    onDelete: 'SET NULL',
+  })
   artifacts: Relation<Artifacts>[];
 
-  @OneToMany(() => Histories, (histories) => histories.setting)
+  @OneToMany(() => Histories, (histories) => histories.setting, {
+    onDelete: 'SET NULL',
+  })
   histories: Relation<Histories>[];
 
   @ManyToMany(() => Books, (books) => books.settings, {

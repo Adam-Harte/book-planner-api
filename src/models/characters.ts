@@ -71,18 +71,26 @@ export class Characters extends Being {
   })
   characterArc: string;
 
-  @ManyToOne(() => Characters, (characters) => characters.mothersChildren)
+  @ManyToOne(() => Characters, (characters) => characters.mothersChildren, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'mother_id' })
   mother: Relation<Characters>;
 
-  @OneToMany(() => Characters, (characters) => characters.mother)
+  @OneToMany(() => Characters, (characters) => characters.mother, {
+    onDelete: 'SET NULL',
+  })
   mothersChildren: Relation<Characters>[];
 
-  @ManyToOne(() => Characters, (characters) => characters.fathersChildren)
+  @ManyToOne(() => Characters, (characters) => characters.fathersChildren, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'father_id' })
   father: Relation<Characters>;
 
-  @OneToMany(() => Characters, (characters) => characters.father)
+  @OneToMany(() => Characters, (characters) => characters.father, {
+    onDelete: 'SET NULL',
+  })
   fathersChildren: Relation<Characters>[];
 
   @Column({
@@ -99,15 +107,21 @@ export class Characters extends Being {
   })
   enemyIds: number[];
 
-  @ManyToOne(() => Series, (series) => series.characters)
+  @ManyToOne(() => Series, (series) => series.characters, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.characters)
+  @ManyToOne(() => Settings, (settings) => settings.characters, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToOne(() => Families, (families) => families.characters)
+  @ManyToOne(() => Families, (families) => families.characters, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'family_id' })
   family: Relation<Families>;
 

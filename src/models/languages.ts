@@ -8,7 +8,9 @@ import { Common } from './shared/common';
 
 @Entity()
 export class Languages extends Common {
-  @ManyToOne(() => Series, (series) => series.battles)
+  @ManyToOne(() => Series, (series) => series.languages, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 

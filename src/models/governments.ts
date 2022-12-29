@@ -8,11 +8,15 @@ import { Common } from './shared/common';
 
 @Entity()
 export class Governments extends Common {
-  @ManyToOne(() => Series, (series) => series.governments)
+  @ManyToOne(() => Series, (series) => series.governments, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.governments)
+  @ManyToOne(() => Settings, (settings) => settings.governments, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
