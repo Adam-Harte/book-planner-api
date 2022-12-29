@@ -5,7 +5,9 @@ import cors from 'cors';
 import * as dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
-import { DataSource } from 'typeorm';
+
+import { AppDataSource } from './dataSource';
+import { authRouter } from './routes/auth';
 
 dotenv.config();
 
@@ -20,24 +22,16 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-const AppDataSource = new DataSource({
-  type: 'postgres',
-  host: 'localhost',
-  port: parseInt(process.env.POSTGRES_PORT as string, 10),
-  username: process.env.POSTGRES_USERNAME,
-  password: process.env.POSTGRES_PASSWORD,
-  database: process.env.POSTGRES_DB,
-  entities: ['src/models/*.ts'],
-  migrations: [],
-  synchronize: true,
-  logging: true,
-});
+// routes
+app.use('/api/auth', authRouter);
 
 try {
   await AppDataSource.initialize();
+  console.log('Data source initialized');
+
   app.listen(process.env.PORT, () => {
     console.log(`Listening on port ${process.env.PORT}`);
   });
 } catch (err) {
-  console.log(err);
+  console.log('Data source not initialized due to errors', err);
 }
