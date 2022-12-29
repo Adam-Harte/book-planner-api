@@ -1,6 +1,34 @@
-import { Entity } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import { Entity, JoinColumn, ManyToMany, ManyToOne, Relation } from 'typeorm';
 
+import { Books } from './books';
+import { Religions } from './religions';
+import { Series } from './series';
+import { Settings } from './settings';
 import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
-export class Gods extends CommonWithImage {}
+export class Gods extends CommonWithImage {
+  @ManyToOne(() => Series, (series) => series.gods, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToOne(() => Settings, (settings) => settings.gods, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'setting_id' })
+  setting: Relation<Settings>;
+
+  @ManyToOne(() => Religions, (religions) => religions.gods, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'religion_id' })
+  religion: Relation<Religions>;
+
+  @ManyToMany(() => Books, (books) => books.gods, {
+    onDelete: 'CASCADE',
+  })
+  books: Relation<Books>[];
+}

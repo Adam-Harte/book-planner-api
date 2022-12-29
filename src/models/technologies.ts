@@ -11,29 +11,30 @@ import {
 import { Books } from './books';
 import { Series } from './series';
 import { Settings } from './settings';
-import { Common } from './shared/common';
+import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
-export class Histories extends Common {
+export class Technologies extends CommonWithImage {
   @Column({
     type: 'varchar',
+    length: 50,
     nullable: true,
   })
-  events: string;
+  inventor: string;
 
-  @ManyToOne(() => Series, (series) => series.histories, {
+  @ManyToOne(() => Series, (series) => series.technologies, {
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.histories, {
+  @ManyToOne(() => Settings, (settings) => settings.technologies, {
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.histories, {
+  @ManyToMany(() => Books, (books) => books.technologies, {
     onDelete: 'CASCADE',
   })
   books: Relation<Books>[];

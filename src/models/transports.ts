@@ -4,23 +4,23 @@ import { Entity, JoinColumn, ManyToMany, ManyToOne, Relation } from 'typeorm';
 import { Books } from './books';
 import { Series } from './series';
 import { Settings } from './settings';
-import { Being } from './shared/being';
+import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
-export class Creatures extends Being {
-  @ManyToOne(() => Series, (series) => series.battles, {
+export class Transports extends CommonWithImage {
+  @ManyToOne(() => Series, (series) => series.transports, {
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToOne(() => Settings, (settings) => settings.battles, {
+  @ManyToOne(() => Settings, (settings) => settings.transports, {
     onDelete: 'SET NULL',
   })
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.creatures, {
+  @ManyToMany(() => Books, (books) => books.transports, {
     onDelete: 'CASCADE',
   })
   books: Relation<Books>[];

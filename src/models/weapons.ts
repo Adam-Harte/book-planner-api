@@ -1,5 +1,15 @@
-import { Column, Entity } from 'typeorm';
+/* eslint-disable import/no-cycle */
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  Relation,
+} from 'typeorm';
 
+import { Books } from './books';
+import { Series } from './series';
 import { CommonWithImage } from './shared/commonWithImage';
 
 @Entity()
@@ -24,4 +34,15 @@ export class Weapons extends CommonWithImage {
     nullable: true,
   })
   forged: string;
+
+  @ManyToOne(() => Series, (series) => series.weapons, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToMany(() => Books, (books) => books.weapons, {
+    onDelete: 'CASCADE',
+  })
+  books: Relation<Books>[];
 }

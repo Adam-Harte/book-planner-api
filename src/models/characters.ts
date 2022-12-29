@@ -1,6 +1,22 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-use-before-define */
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+  Relation,
+} from 'typeorm';
 
+import { Books } from './books';
+import { Families } from './families';
+import { Groups } from './groups';
+import { Plots } from './plots';
+import { Races } from './races';
+import { Series } from './series';
+import { Settings } from './settings';
 import { Being } from './shared/being';
 import { CharacterGender, CharacterTitle, CharacterType } from './types/enums';
 
@@ -55,19 +71,27 @@ export class Characters extends Being {
   })
   characterArc: string;
 
-  @ManyToOne(() => Characters, (characters) => characters.mothersChildren)
+  @ManyToOne(() => Characters, (characters) => characters.mothersChildren, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'mother_id' })
-  mother: Characters;
+  mother: Relation<Characters>;
 
-  @OneToMany(() => Characters, (characters) => characters.mother)
-  mothersChildren: Characters[];
+  @OneToMany(() => Characters, (characters) => characters.mother, {
+    onDelete: 'SET NULL',
+  })
+  mothersChildren: Relation<Characters>[];
 
-  @ManyToOne(() => Characters, (characters) => characters.fathersChildren)
+  @ManyToOne(() => Characters, (characters) => characters.fathersChildren, {
+    onDelete: 'SET NULL',
+  })
   @JoinColumn({ name: 'father_id' })
-  father: Characters;
+  father: Relation<Characters>;
 
-  @OneToMany(() => Characters, (characters) => characters.father)
-  fathersChildren: Characters[];
+  @OneToMany(() => Characters, (characters) => characters.father, {
+    onDelete: 'SET NULL',
+  })
+  fathersChildren: Relation<Characters>[];
 
   @Column({
     name: 'ally_ids',
@@ -82,4 +106,42 @@ export class Characters extends Being {
     nullable: true,
   })
   enemyIds: number[];
+
+  @ManyToOne(() => Series, (series) => series.characters, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'series_id' })
+  series: Relation<Series>;
+
+  @ManyToOne(() => Settings, (settings) => settings.characters, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'setting_id' })
+  setting: Relation<Settings>;
+
+  @ManyToOne(() => Families, (families) => families.characters, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'family_id' })
+  family: Relation<Families>;
+
+  @ManyToMany(() => Books, (books) => books.characters, {
+    onDelete: 'CASCADE',
+  })
+  books: Relation<Books>[];
+
+  @ManyToMany(() => Plots, (plots) => plots.characters, {
+    onDelete: 'CASCADE',
+  })
+  plots: Relation<Plots>[];
+
+  @ManyToMany(() => Groups, (groups) => groups.characters, {
+    onDelete: 'CASCADE',
+  })
+  groups: Relation<Groups>[];
+
+  @ManyToMany(() => Races, (races) => races.characters, {
+    onDelete: 'CASCADE',
+  })
+  races: Relation<Races>[];
 }
