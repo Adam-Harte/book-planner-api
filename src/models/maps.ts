@@ -11,6 +11,8 @@ export class Maps extends CommonWithImage {
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToMany(() => Books, (books) => books.maps)
+  @ManyToMany(() => Books, (books) => books.maps, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

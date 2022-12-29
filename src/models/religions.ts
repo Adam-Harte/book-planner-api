@@ -27,6 +27,8 @@ export class Religions extends Common {
   @OneToMany(() => Gods, (gods) => gods.religion)
   gods: Relation<Gods>[];
 
-  @ManyToMany(() => Books, (books) => books.religions)
+  @ManyToMany(() => Books, (books) => books.religions, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

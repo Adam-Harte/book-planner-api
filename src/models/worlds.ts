@@ -14,6 +14,8 @@ export class Worlds extends Common {
   @OneToMany(() => Settings, (settings) => settings.world)
   settings: Relation<Settings>[];
 
-  @ManyToMany(() => Books, (books) => books.worlds)
+  @ManyToMany(() => Books, (books) => books.worlds, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

@@ -8,8 +8,8 @@ import {
   ManyToOne,
   Relation,
 } from 'typeorm';
-import { Characters } from './characters';
 
+import { Characters } from './characters';
 import { Series } from './series';
 import { Settings } from './settings';
 import { CommonWithImage } from './shared/commonWithImage';
@@ -32,7 +32,9 @@ export class Groups extends CommonWithImage {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Characters)
+  @ManyToMany(() => Characters, (characters) => characters.groups, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'groups_characters',
     joinColumn: {

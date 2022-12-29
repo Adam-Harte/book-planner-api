@@ -29,6 +29,8 @@ export class Artifacts extends CommonWithImage {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.artifacts)
+  @ManyToMany(() => Books, (books) => books.artifacts, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

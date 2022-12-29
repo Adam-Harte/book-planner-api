@@ -16,6 +16,8 @@ export class Transports extends CommonWithImage {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.transports)
+  @ManyToMany(() => Books, (books) => books.transports, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

@@ -30,6 +30,8 @@ export class Songs extends CreatedAndUpdated {
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToMany(() => Books, (books) => books.songs)
+  @ManyToMany(() => Books, (books) => books.songs, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

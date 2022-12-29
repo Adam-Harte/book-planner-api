@@ -50,6 +50,8 @@ export class Families extends CommonWithImage {
   @OneToMany(() => Characters, (characters) => characters.series)
   characters: Relation<Characters>[];
 
-  @ManyToMany(() => Books, (books) => books.families)
+  @ManyToMany(() => Books, (books) => books.families, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

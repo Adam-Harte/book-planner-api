@@ -29,6 +29,8 @@ export class Histories extends Common {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.histories)
+  @ManyToMany(() => Books, (books) => books.histories, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

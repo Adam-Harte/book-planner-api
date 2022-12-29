@@ -16,6 +16,8 @@ export class Creatures extends Being {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.creatures)
+  @ManyToMany(() => Books, (books) => books.creatures, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

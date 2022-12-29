@@ -40,7 +40,9 @@ export class Plots extends Common {
   @JoinColumn({ name: 'book_id' })
   book: Relation<Books>;
 
-  @ManyToMany(() => Characters)
+  @ManyToMany(() => Characters, (characters) => characters.plots, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'plots_characters',
     joinColumn: {
@@ -54,7 +56,9 @@ export class Plots extends Common {
   })
   characters: Relation<Characters>[];
 
-  @ManyToMany(() => Settings)
+  @ManyToMany(() => Settings, (settings) => settings.plots, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'plots_settings',
     joinColumn: {
@@ -68,7 +72,9 @@ export class Plots extends Common {
   })
   settings: Relation<Settings>[];
 
-  @ManyToMany(() => PlotReferences, (plotReferences) => plotReferences.plots)
+  @ManyToMany(() => PlotReferences, (plotReferences) => plotReferences.plots, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'plots_plot_references',
     joinColumn: {

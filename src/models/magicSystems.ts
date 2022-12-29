@@ -24,6 +24,8 @@ export class MagicSystems extends Common {
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToMany(() => Books, (books) => books.magicSystems)
+  @ManyToMany(() => Books, (books) => books.magicSystems, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

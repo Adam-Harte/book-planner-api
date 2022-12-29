@@ -30,6 +30,8 @@ export class Technologies extends CommonWithImage {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.technologies)
+  @ManyToMany(() => Books, (books) => books.technologies, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

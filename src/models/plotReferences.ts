@@ -39,6 +39,8 @@ export class PlotReferences extends CreatedAndUpdated {
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToMany(() => Plots, (plots) => plots.plotReferences)
+  @ManyToMany(() => Plots, (plots) => plots.plotReferences, {
+    onDelete: 'CASCADE',
+  })
   plots: Relation<Plots>[];
 }

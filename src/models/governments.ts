@@ -16,6 +16,8 @@ export class Governments extends Common {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Books, (books) => books.governments)
+  @ManyToMany(() => Books, (books) => books.governments, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

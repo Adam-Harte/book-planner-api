@@ -32,7 +32,9 @@ export class Races extends Common {
   @JoinColumn({ name: 'setting_id' })
   setting: Relation<Settings>;
 
-  @ManyToMany(() => Characters)
+  @ManyToMany(() => Characters, (characters) => characters.races, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'races_characters',
     joinColumn: {
@@ -46,7 +48,9 @@ export class Races extends Common {
   })
   characters: Relation<Characters>[];
 
-  @ManyToMany(() => Languages)
+  @ManyToMany(() => Languages, (languages) => languages.races, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'races_languages',
     joinColumn: {
@@ -60,6 +64,8 @@ export class Races extends Common {
   })
   languages: Relation<Languages>[];
 
-  @ManyToMany(() => Books, (books) => books.races)
+  @ManyToMany(() => Books, (books) => books.races, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

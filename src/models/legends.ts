@@ -11,6 +11,8 @@ export class Legends extends Common {
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToMany(() => Books, (books) => books.legends)
+  @ManyToMany(() => Books, (books) => books.legends, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

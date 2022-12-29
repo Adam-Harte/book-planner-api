@@ -12,9 +12,13 @@ export class Languages extends Common {
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
 
-  @ManyToMany(() => Books, (books) => books.languages)
+  @ManyToMany(() => Books, (books) => books.languages, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 
-  @ManyToMany(() => Races, (races) => races.languages)
+  @ManyToMany(() => Races, (races) => races.languages, {
+    onDelete: 'CASCADE',
+  })
   races: Relation<Races>[];
 }

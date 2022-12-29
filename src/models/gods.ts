@@ -21,6 +21,8 @@ export class Gods extends CommonWithImage {
   @JoinColumn({ name: 'religion_id' })
   religion: Relation<Religions>;
 
-  @ManyToMany(() => Books, (books) => books.gods)
+  @ManyToMany(() => Books, (books) => books.gods, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 }

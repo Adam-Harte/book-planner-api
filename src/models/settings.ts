@@ -99,9 +99,13 @@ export class Settings extends CommonWithImage {
   @OneToMany(() => Histories, (histories) => histories.setting)
   histories: Relation<Histories>[];
 
-  @ManyToMany(() => Books, (books) => books.settings)
+  @ManyToMany(() => Books, (books) => books.settings, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 
-  @ManyToMany(() => Plots, (plots) => plots.settings)
+  @ManyToMany(() => Plots, (plots) => plots.settings, {
+    onDelete: 'CASCADE',
+  })
   plots: Relation<Plots>[];
 }

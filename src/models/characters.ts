@@ -111,15 +111,23 @@ export class Characters extends Being {
   @JoinColumn({ name: 'family_id' })
   family: Relation<Families>;
 
-  @ManyToMany(() => Books, (books) => books.characters)
+  @ManyToMany(() => Books, (books) => books.characters, {
+    onDelete: 'CASCADE',
+  })
   books: Relation<Books>[];
 
-  @ManyToMany(() => Plots, (plots) => plots.characters)
+  @ManyToMany(() => Plots, (plots) => plots.characters, {
+    onDelete: 'CASCADE',
+  })
   plots: Relation<Plots>[];
 
-  @ManyToMany(() => Groups, (groups) => groups.characters)
+  @ManyToMany(() => Groups, (groups) => groups.characters, {
+    onDelete: 'CASCADE',
+  })
   groups: Relation<Groups>[];
 
-  @ManyToMany(() => Races, (races) => races.characters)
+  @ManyToMany(() => Races, (races) => races.characters, {
+    onDelete: 'CASCADE',
+  })
   races: Relation<Races>[];
 }

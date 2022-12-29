@@ -62,7 +62,9 @@ export class Books extends CreatedAndUpdated {
   @OneToMany(() => Plots, (plots) => plots.book)
   plots: Relation<Plots>[];
 
-  @ManyToMany(() => Characters, (characters) => characters.books)
+  @ManyToMany(() => Characters, (characters) => characters.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_characters',
     joinColumn: {
@@ -76,7 +78,9 @@ export class Books extends CreatedAndUpdated {
   })
   characters: Relation<Characters>[];
 
-  @ManyToMany(() => Settings, (settings) => settings.books)
+  @ManyToMany(() => Settings, (settings) => settings.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_settings',
     joinColumn: {
@@ -90,7 +94,9 @@ export class Books extends CreatedAndUpdated {
   })
   settings: Relation<Settings>[];
 
-  @ManyToMany(() => Worlds, (worlds) => worlds.books)
+  @ManyToMany(() => Worlds, (worlds) => worlds.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_worlds',
     joinColumn: {
@@ -104,7 +110,9 @@ export class Books extends CreatedAndUpdated {
   })
   worlds: Relation<Worlds>[];
 
-  @ManyToMany(() => MagicSystems, (magicSystems) => magicSystems.books)
+  @ManyToMany(() => MagicSystems, (magicSystems) => magicSystems.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_magic_systems',
     joinColumn: {
@@ -118,7 +126,9 @@ export class Books extends CreatedAndUpdated {
   })
   magicSystems: Relation<MagicSystems>[];
 
-  @ManyToMany(() => Weapons, (weapons) => weapons.books)
+  @ManyToMany(() => Weapons, (weapons) => weapons.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_weapons',
     joinColumn: {
@@ -132,7 +142,9 @@ export class Books extends CreatedAndUpdated {
   })
   weapons: Relation<Weapons>[];
 
-  @ManyToMany(() => Technologies, (technologies) => technologies.books)
+  @ManyToMany(() => Technologies, (technologies) => technologies.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_technologies',
     joinColumn: {
@@ -146,7 +158,9 @@ export class Books extends CreatedAndUpdated {
   })
   technologies: Relation<Technologies>[];
 
-  @ManyToMany(() => Transports, (transports) => transports.books)
+  @ManyToMany(() => Transports, (transports) => transports.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_transports',
     joinColumn: {
@@ -160,7 +174,9 @@ export class Books extends CreatedAndUpdated {
   })
   transports: Relation<Transports>[];
 
-  @ManyToMany(() => Battles, (battles) => battles.books)
+  @ManyToMany(() => Battles, (battles) => battles.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_battles',
     joinColumn: {
@@ -174,7 +190,9 @@ export class Books extends CreatedAndUpdated {
   })
   battles: Relation<Battles>[];
 
-  @ManyToMany(() => Creatures, (creatures) => creatures.books)
+  @ManyToMany(() => Creatures, (creatures) => creatures.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_creatures',
     joinColumn: {
@@ -188,7 +206,9 @@ export class Books extends CreatedAndUpdated {
   })
   creatures: Relation<Creatures>[];
 
-  @ManyToMany(() => Races, (races) => races.books)
+  @ManyToMany(() => Races, (races) => races.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_races',
     joinColumn: {
@@ -202,7 +222,9 @@ export class Books extends CreatedAndUpdated {
   })
   races: Relation<Races>[];
 
-  @ManyToMany(() => Languages, (languages) => languages.books)
+  @ManyToMany(() => Languages, (languages) => languages.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_languages',
     joinColumn: {
@@ -216,7 +238,9 @@ export class Books extends CreatedAndUpdated {
   })
   languages: Relation<Languages>[];
 
-  @ManyToMany(() => Songs, (songs) => songs.books)
+  @ManyToMany(() => Songs, (songs) => songs.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_songs',
     joinColumn: {
@@ -230,7 +254,9 @@ export class Books extends CreatedAndUpdated {
   })
   songs: Relation<Songs>[];
 
-  @ManyToMany(() => Families, (families) => families.books)
+  @ManyToMany(() => Families, (families) => families.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_families',
     joinColumn: {
@@ -244,7 +270,9 @@ export class Books extends CreatedAndUpdated {
   })
   families: Relation<Families>[];
 
-  @ManyToMany(() => Governments, (governments) => governments.books)
+  @ManyToMany(() => Governments, (governments) => governments.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_governments',
     joinColumn: {
@@ -258,7 +286,9 @@ export class Books extends CreatedAndUpdated {
   })
   governments: Relation<Governments>[];
 
-  @ManyToMany(() => Religions, (religions) => religions.books)
+  @ManyToMany(() => Religions, (religions) => religions.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_religions',
     joinColumn: {
@@ -272,7 +302,9 @@ export class Books extends CreatedAndUpdated {
   })
   religions: Relation<Religions>[];
 
-  @ManyToMany(() => Gods, (gods) => gods.books)
+  @ManyToMany(() => Gods, (gods) => gods.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_gods',
     joinColumn: {
@@ -286,7 +318,9 @@ export class Books extends CreatedAndUpdated {
   })
   gods: Relation<Gods>[];
 
-  @ManyToMany(() => Artifacts, (artifacts) => artifacts.books)
+  @ManyToMany(() => Artifacts, (artifacts) => artifacts.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_artifacts',
     joinColumn: {
@@ -300,7 +334,9 @@ export class Books extends CreatedAndUpdated {
   })
   artifacts: Relation<Artifacts>[];
 
-  @ManyToMany(() => Legends, (legends) => legends.books)
+  @ManyToMany(() => Legends, (legends) => legends.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_legends',
     joinColumn: {
@@ -314,7 +350,9 @@ export class Books extends CreatedAndUpdated {
   })
   legends: Relation<Legends>[];
 
-  @ManyToMany(() => Histories, (histories) => histories.books)
+  @ManyToMany(() => Histories, (histories) => histories.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_histories',
     joinColumn: {
@@ -328,7 +366,9 @@ export class Books extends CreatedAndUpdated {
   })
   histories: Relation<Histories>[];
 
-  @ManyToMany(() => Maps, (maps) => maps.books)
+  @ManyToMany(() => Maps, (maps) => maps.books, {
+    onDelete: 'CASCADE',
+  })
   @JoinTable({
     name: 'books_maps',
     joinColumn: {
