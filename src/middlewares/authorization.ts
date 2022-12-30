@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
 import { AuthTokenPayload } from '../types/authTokenPayload';
+import { HttpCode } from '../types/httpCode';
 
 export const authorization = (
   req: Request,
@@ -10,7 +11,7 @@ export const authorization = (
 ) => {
   const token = req.cookies.access_token;
   if (!token) {
-    return res.sendStatus(401);
+    return res.sendStatus(HttpCode.UNAUTHORIZED);
   }
   try {
     const data = jwt.verify(
@@ -21,6 +22,6 @@ export const authorization = (
     req.username = data.username;
     return next();
   } catch {
-    return res.sendStatus(500);
+    return res.sendStatus(HttpCode.INTERNAL_SERVER_ERROR);
   }
 };
