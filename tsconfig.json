@@ -104,6 +104,7 @@
     "skipLibCheck": true,                                /* Skip type checking all .d.ts files. */
   },
   "exclude": [
+    "./src/setupTestDb.ts",
     "**/*.test.*",
     "**/__mocks__/*",
     "**/__tests__/*",
