@@ -78,7 +78,7 @@ describe('Auth controller', () => {
     jwt.sign = jest
       .fn()
       .mockImplementation(
-        (payload: object, secret: string, options: object) => {
+        (payload: object, _secret: string, options: object) => {
           const payloadKeysStr = Object.keys(payload).reduce(
             (acc, cur) => `${acc}${cur}-`,
             ''

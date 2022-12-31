@@ -63,7 +63,7 @@ describe('Auth routes', () => {
     jwt.sign = jest
       .fn()
       .mockImplementation(
-        (payload: object, secret: string, options: object) => {
+        (payload: object, _secret: jwt.Secret, options: jwt.SignOptions) => {
           const payloadKeysStr = Object.keys(payload).reduce(
             (acc, cur) => `${acc}${cur}-`,
             ''
@@ -79,23 +79,21 @@ describe('Auth routes', () => {
           return `${payloadKeysStr}_${payloadValuesStr}_${objStr}`;
         }
       );
-    jwt.verify = jest
-      .fn()
-      .mockImplementation((token: string, secret: string) => {
-        const tokenObjs = token.split('_');
-        const tokenKeys = tokenObjs[0].split('-');
-        const tokenValues = tokenObjs[1].split('-');
+    jwt.verify = jest.fn().mockImplementation((token: string) => {
+      const tokenObjs = token.split('_');
+      const tokenKeys = tokenObjs[0].split('-');
+      const tokenValues = tokenObjs[1].split('-');
 
-        return tokenKeys.reduce(
-          (acc, cur, idx) => ({
-            ...acc,
-            ...(tokenValues[idx] !== '-' && {
-              [cur]: tokenValues[idx],
-            }),
+      return tokenKeys.reduce(
+        (acc, cur, idx) => ({
+          ...acc,
+          ...(tokenValues[idx] !== '-' && {
+            [cur]: tokenValues[idx],
           }),
-          {}
-        );
-      });
+        }),
+        {}
+      );
+    });
   });
 
   beforeEach(() => {
