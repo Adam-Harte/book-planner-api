@@ -1,6 +1,7 @@
 import { IBackup } from 'pg-mem';
 import { DataSource } from 'typeorm/data-source';
 
+import { generateMockUser } from '../mockData/users';
 import {
   destroyTestDataSource,
   setupTestDataSource,
@@ -28,24 +29,18 @@ describe('Users repository', () => {
   });
 
   it('returns a user found by matching email', async () => {
-    const user = await usersRepository.create({
-      username: 'test',
-      email: 'test@test.com',
-      password: 'testUser123!',
-    });
+    const fakeUser = generateMockUser();
+    const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
 
-    const result = await usersRepository.findByEmail('test@test.com');
+    const result = await usersRepository.findByEmail(fakeUser.email);
 
     expect(result).toEqual(user);
   });
 
   it('returns null if user not found by matching email', async () => {
-    const user = await usersRepository.create({
-      username: 'test',
-      email: 'test@test.com',
-      password: 'testUser123!',
-    });
+    const fakeUser = generateMockUser();
+    const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
 
     const result = await usersRepository.findByEmail('fail@test.com');

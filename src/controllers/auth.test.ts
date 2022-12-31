@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import { IBackup } from 'pg-mem';
 import { DataSource } from 'typeorm/data-source';
 
+import { generateMockUser } from '../mockData/users';
 import { getUsersRepository, UsersRepository } from '../repositories/users';
 import {
   destroyTestDataSource,
@@ -109,11 +110,8 @@ describe('Auth controller', () => {
     // add a test for validation case
 
     it('should fail when trying to signup with an email that already exists', async () => {
-      const req = mockRequest({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const fakeUser = generateMockUser();
+      const req = mockRequest(fakeUser);
       const res = mockResponse();
       const user = await UsersRepository.create(req.body);
       await UsersRepository.save(user);
@@ -127,31 +125,26 @@ describe('Auth controller', () => {
     });
 
     it('should create a new user when validations pass and the email provided doesnt already exist', async () => {
-      const req = mockRequest({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const fakeUser = generateMockUser();
+      const req = mockRequest(fakeUser);
       const res = mockResponse();
       await signup(req as Request, res as Response);
 
       expect(UsersRepository.create).toHaveBeenCalledWith({
-        email: 'test@test.com',
-        password: 'testUser123!-12',
-        username: 'test',
+        ...fakeUser,
+        password: `${fakeUser.password}-12`,
       });
       expect(UsersRepository.save).toHaveBeenCalledWith(
         expect.objectContaining({
-          email: 'test@test.com',
+          ...fakeUser,
+          password: `${fakeUser.password}-12`,
           id: 1,
-          password: 'testUser123!-12',
-          username: 'test',
         })
       );
       expect(res.status).toHaveBeenCalledWith(HttpCode.CREATED);
       expect(res.cookie).toHaveBeenCalledWith(
         'access_token',
-        'username-email-userId-_test-test@test.com-1-_expiresIn',
+        `username-email-userId-_${fakeUser.username}-${fakeUser.email}-1-_expiresIn`,
         { httpOnly: true, secure: false }
       );
       expect(res.json).toHaveBeenCalledWith({
@@ -163,16 +156,13 @@ describe('Auth controller', () => {
 
   describe('login', () => {
     it('should fail if the provided email does not exist', async () => {
+      const fakeUser = generateMockUser();
       const req = mockRequest({
         email: 'testUser@test.com',
         password: 'testUser123!',
       });
       const res = mockResponse();
-      const user = await UsersRepository.create({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await login(req as Request, res as Response);
 
@@ -183,17 +173,14 @@ describe('Auth controller', () => {
       });
     });
 
-    it('should fail if the provided poassword is incorrect', async () => {
+    it('should fail if the provided password is incorrect', async () => {
+      const fakeUser = generateMockUser();
       const req = mockRequest({
-        email: 'test@test.com',
+        email: fakeUser.email,
         password: 'failUser456?',
       });
       const res = mockResponse();
-      const user = await UsersRepository.create({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await login(req as Request, res as Response);
 
@@ -205,23 +192,20 @@ describe('Auth controller', () => {
     });
 
     it('should log the user in if the provided credentials are correct', async () => {
+      const fakeUser = generateMockUser();
       const req = mockRequest({
-        email: 'test@test.com',
-        password: 'testUser123!',
+        email: fakeUser.email,
+        password: fakeUser.password,
       });
       const res = mockResponse();
-      const user = await UsersRepository.create({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await login(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(HttpCode.OK);
       expect(res.cookie).toHaveBeenCalledWith(
         'access_token',
-        'username-email-userId-_test-test@test.com-1-_expiresIn',
+        `username-email-userId-_${fakeUser.username}-${fakeUser.email}-1-_expiresIn`,
         { httpOnly: true, secure: false }
       );
       expect(res.json).toHaveBeenCalledWith({
@@ -247,13 +231,10 @@ describe('Auth controller', () => {
 
   describe('deleteAccount', () => {
     it('should fail if the req userId does not match the passed body id', async () => {
+      const fakeUser = generateMockUser();
       const req = mockRequest({ id: 1 }, '2');
       const res = mockResponse();
-      const user = await UsersRepository.create({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await deleteAccount(req as Request, res as Response);
       expect(res.clearCookie).not.toHaveBeenCalled();
@@ -264,13 +245,10 @@ describe('Auth controller', () => {
     });
 
     it('should fail if the req userId and passed body id dont exist', async () => {
+      const fakeUser = generateMockUser();
       const req = mockRequest({ id: 2 }, '2');
       const res = mockResponse();
-      const user = await UsersRepository.create({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
 
       await deleteAccount(req as Request, res as Response);
@@ -283,13 +261,10 @@ describe('Auth controller', () => {
     });
 
     it('should delete the user account if requested from the correct user', async () => {
+      const fakeUser = generateMockUser();
       const req = mockRequest({ id: 1 }, '1');
       const res = mockResponse();
-      const user = await UsersRepository.create({
-        username: 'test',
-        email: 'test@test.com',
-        password: 'testUser123!',
-      });
+      const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await deleteAccount(req as Request, res as Response);
       expect(res.clearCookie).toHaveBeenCalledWith('access_token');
