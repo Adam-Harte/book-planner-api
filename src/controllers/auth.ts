@@ -137,7 +137,7 @@ export const deleteAccount = async (req: Request, res: Response) => {
     });
   }
 
-  const user = await UsersRepository.find({
+  const user = await UsersRepository.findOne({
     where: {
       id,
     },
