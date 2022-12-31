@@ -10,10 +10,6 @@ import { authRouter } from './routes/auth';
 
 dotenv.config();
 
-if (!process.env.PORT) {
-  process.exit(1);
-}
-
 export const app = express();
 
 app.use(helmet());
