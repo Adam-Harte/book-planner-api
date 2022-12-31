@@ -47,6 +47,6 @@
     "@typescript-eslint/no-shadow": "error",
 		"no-unused-vars": "off",
   	"@typescript-eslint/no-unused-vars": "error",
-		"import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "./src/setupTestDb.ts"]}]
+		"import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "./src/mockData/*.ts", "./src/setupTestDb.ts"]}]
 	}
 }
