@@ -22,6 +22,7 @@ describe('Users repository', () => {
 
   beforeEach(() => {
     dbBackup.restore();
+    jest.clearAllMocks();
   });
 
   afterAll(async () => {

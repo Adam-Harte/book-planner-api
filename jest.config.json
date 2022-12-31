@@ -12,5 +12,6 @@
     }
   },
   "moduleDirectories": ["node_modules", "src"],
-  "setupFiles": ["dotenv/config"]
+  "setupFiles": ["dotenv/config"],
+  "setupFilesAfterEnv": ["./src/setupTests.ts"]
 }

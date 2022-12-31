@@ -1,6 +1,5 @@
-import bcrypt from 'bcryptjs';
+import { getMockReq, getMockRes } from '@jest-mock/express';
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 import { IBackup } from 'pg-mem';
 import { DataSource } from 'typeorm/data-source';
 
@@ -17,23 +16,6 @@ import { deleteAccount, login, logout, signup } from './auth';
 describe('Auth controller', () => {
   let testDataSource: DataSource;
   let dbBackup: IBackup;
-
-  const mockRequest = (
-    body?: Record<string, any>,
-    userId?: string
-  ): Partial<Request> => ({
-    body,
-    userId,
-  });
-
-  const mockResponse = () => {
-    const res: Partial<Response> = {};
-    res.status = jest.fn().mockReturnValue(res);
-    res.cookie = jest.fn().mockReturnValue(res);
-    res.clearCookie = jest.fn().mockReturnValue(res);
-    res.json = jest.fn().mockReturnValue(res);
-    return res;
-  };
 
   beforeAll(async () => {
     testDataSource = await setupTestDataSource();
@@ -63,38 +45,6 @@ describe('Auth controller', () => {
         getUsersRepository(testDataSource).delete(id)
       );
     dbBackup = testDb.backup();
-    bcrypt.hash = jest
-      .fn()
-      .mockImplementation((s: string, salt: string | number) =>
-        Promise.resolve(`${s}-${salt}`)
-      );
-    bcrypt.compare = jest
-      .fn()
-      .mockImplementation(async (s: string, hash: string) => {
-        const hashed1 = await bcrypt.hash(s, 12);
-        const hashed2 = await bcrypt.hash(hash, 12);
-
-        return Promise.resolve(hashed1 === hashed2);
-      });
-    jwt.sign = jest
-      .fn()
-      .mockImplementation(
-        (payload: object, _secret: string, options: object) => {
-          const payloadKeysStr = Object.keys(payload).reduce(
-            (acc, cur) => `${acc}${cur}-`,
-            ''
-          );
-          const payloadValuesStr = Object.values(payload).reduce(
-            (acc, cur) => `${acc}${cur}-`,
-            ''
-          );
-          const objStr = Object.keys(options).reduce(
-            (acc, cur) => `${acc}${cur}`,
-            ''
-          );
-          return `${payloadKeysStr}_${payloadValuesStr}_${objStr}`;
-        }
-      );
   });
 
   beforeEach(() => {
@@ -111,8 +61,12 @@ describe('Auth controller', () => {
 
     it('should fail when trying to signup with an email that already exists', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest(fakeUser);
-      const res = mockResponse();
+      const req = getMockReq({
+        body: {
+          ...fakeUser,
+        },
+      });
+      const { res } = getMockRes();
       const user = await UsersRepository.create(req.body);
       await UsersRepository.save(user);
       await signup(req as Request, res as Response);
@@ -126,8 +80,12 @@ describe('Auth controller', () => {
 
     it('should create a new user when validations pass and the email provided doesnt already exist', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest(fakeUser);
-      const res = mockResponse();
+      const req = getMockReq({
+        body: {
+          ...fakeUser,
+        },
+      });
+      const { res } = getMockRes();
       await signup(req as Request, res as Response);
 
       expect(UsersRepository.create).toHaveBeenCalledWith({
@@ -157,11 +115,13 @@ describe('Auth controller', () => {
   describe('login', () => {
     it('should fail if the provided email does not exist', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest({
-        email: 'testUser@test.com',
-        password: 'testUser123!',
+      const req = getMockReq({
+        body: {
+          email: 'testUser@test.com',
+          password: 'testUser123!',
+        },
       });
-      const res = mockResponse();
+      const { res } = getMockRes();
       const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await login(req as Request, res as Response);
@@ -175,11 +135,13 @@ describe('Auth controller', () => {
 
     it('should fail if the provided password is incorrect', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest({
-        email: fakeUser.email,
-        password: 'failUser456?',
+      const req = getMockReq({
+        body: {
+          email: fakeUser.email,
+          password: 'failUser456?',
+        },
       });
-      const res = mockResponse();
+      const { res } = getMockRes();
       const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await login(req as Request, res as Response);
@@ -193,11 +155,13 @@ describe('Auth controller', () => {
 
     it('should log the user in if the provided credentials are correct', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest({
-        email: fakeUser.email,
-        password: fakeUser.password,
+      const req = getMockReq({
+        body: {
+          email: fakeUser.email,
+          password: fakeUser.password,
+        },
       });
-      const res = mockResponse();
+      const { res } = getMockRes();
       const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await login(req as Request, res as Response);
@@ -216,8 +180,8 @@ describe('Auth controller', () => {
 
   describe('logout', () => {
     it('should logout the user by clearing the access_token cookie', async () => {
-      const req = mockRequest();
-      const res = mockResponse();
+      const req = getMockReq();
+      const { res } = getMockRes();
 
       await logout(req as Request, res as Response);
 
@@ -232,8 +196,13 @@ describe('Auth controller', () => {
   describe('deleteAccount', () => {
     it('should fail if the req userId does not match the passed body id', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest({ id: 1 }, '2');
-      const res = mockResponse();
+      const req = getMockReq({
+        body: {
+          id: 1,
+        },
+        userId: '2',
+      });
+      const { res } = getMockRes();
       const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await deleteAccount(req as Request, res as Response);
@@ -246,8 +215,13 @@ describe('Auth controller', () => {
 
     it('should fail if the req userId and passed body id dont exist', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest({ id: 2 }, '2');
-      const res = mockResponse();
+      const req = getMockReq({
+        body: {
+          id: 2,
+        },
+        userId: '2',
+      });
+      const { res } = getMockRes();
       const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
 
@@ -262,8 +236,13 @@ describe('Auth controller', () => {
 
     it('should delete the user account if requested from the correct user', async () => {
       const fakeUser = generateMockUser();
-      const req = mockRequest({ id: 1 }, '1');
-      const res = mockResponse();
+      const req = getMockReq({
+        body: {
+          id: 1,
+        },
+        userId: '1',
+      });
+      const { res } = getMockRes();
       const user = await UsersRepository.create(fakeUser);
       await UsersRepository.save(user);
       await deleteAccount(req as Request, res as Response);
