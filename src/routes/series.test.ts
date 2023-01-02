@@ -4,7 +4,6 @@ import { DataSource } from 'typeorm/data-source';
 
 import { app } from '../app';
 import { generateMockSeries } from '../mockData/series';
-import { generateMockUser } from '../mockData/users';
 import { getSeriesRepository, SeriesRepository } from '../repositories/series';
 import { getUsersRepository, UsersRepository } from '../repositories/users';
 import {

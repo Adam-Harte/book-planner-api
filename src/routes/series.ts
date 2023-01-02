@@ -1,13 +1,11 @@
 import express from 'express';
 import { body } from 'express-validator';
 
-import {
-  createSeries,
-  deleteSeriesById,
-  getSeries,
-  getSeriesById,
-  updateSeriesById,
-} from '../controllers/series';
+import { createSeries } from '../controllers/series/createSeries';
+import { deleteSeriesById } from '../controllers/series/deleteSeriesById';
+import { getSeries } from '../controllers/series/getSeries';
+import { getSeriesById } from '../controllers/series/getSeriesById';
+import { updateSeriesById } from '../controllers/series/updateSeriesById';
 import { authorization } from '../middlewares/authorization';
 
 export const seriesRouter = express.Router();
