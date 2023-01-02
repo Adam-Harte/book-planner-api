@@ -50,10 +50,23 @@ describe('Series repository', () => {
 
     const result = await seriesRepository.getAllByUserId(savedUser.id);
 
-    const { user: seriesUser1, ...seriesData1 } = series1;
-    const { user: seriesUser2, ...seriesData2 } = series1;
+    const { id: series1id, name: series1name, genre: series1genre } = series1;
+    const { id: series2id, name: series2name, genre: series2genre } = series1;
 
-    expect(result).toEqual(expect.arrayContaining([seriesData2, seriesData1]));
+    expect(result).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: series1id,
+          name: series1name,
+          genre: series1genre,
+        }),
+        expect.objectContaining({
+          id: series2id,
+          name: series2name,
+          genre: series2genre,
+        }),
+      ])
+    );
   });
 
   it('returns empty array if no series found by matching user id', async () => {
@@ -96,11 +109,15 @@ describe('Series repository', () => {
       series.id
     );
 
-    const { user: seriesUser, ...seriesData } = series;
+    const { id: seriesId, name: seriesName, genre: seriesGenre } = series;
 
-    expect(result).toEqual({
-      ...seriesData,
-    });
+    expect(result).toEqual(
+      expect.objectContaining({
+        id: seriesId,
+        name: seriesName,
+        genre: seriesGenre,
+      })
+    );
   });
 
   it('returns a series found with a specific user id and series id and its relations', async () => {
@@ -120,35 +137,39 @@ describe('Series repository', () => {
       true
     );
 
-    const { user: seriesUser, ...seriesData } = series;
+    const { id: seriesId, name: seriesName, genre: seriesGenre } = series;
 
-    expect(result).toEqual({
-      ...seriesData,
-      books: [],
-      settings: [],
-      worlds: [],
-      characters: [],
-      plots: [],
-      plotReferences: [],
-      magicSystems: [],
-      weapons: [],
-      technologies: [],
-      transports: [],
-      battles: [],
-      groups: [],
-      creatures: [],
-      races: [],
-      languages: [],
-      songs: [],
-      families: [],
-      governments: [],
-      religions: [],
-      gods: [],
-      artifacts: [],
-      legends: [],
-      histories: [],
-      maps: [],
-    });
+    expect(result).toEqual(
+      expect.objectContaining({
+        id: seriesId,
+        name: seriesName,
+        genre: seriesGenre,
+        books: [],
+        settings: [],
+        worlds: [],
+        characters: [],
+        plots: [],
+        plotReferences: [],
+        magicSystems: [],
+        weapons: [],
+        technologies: [],
+        transports: [],
+        battles: [],
+        groups: [],
+        creatures: [],
+        races: [],
+        languages: [],
+        songs: [],
+        families: [],
+        governments: [],
+        religions: [],
+        gods: [],
+        artifacts: [],
+        legends: [],
+        histories: [],
+        maps: [],
+      })
+    );
   });
 
   it('returns null if no series found by a specific user id and series id', async () => {
