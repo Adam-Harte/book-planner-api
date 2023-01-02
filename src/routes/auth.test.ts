@@ -18,7 +18,7 @@ describe('Auth routes', () => {
 
   beforeAll(async () => {
     testDataSource = await setupTestDataSource();
-    server = app.listen(8000);
+    server = app.listen();
     UsersRepository.findByEmail = jest
       .fn()
       .mockImplementation((email: string) =>

@@ -1,7 +1,10 @@
 import express from 'express';
 import { body } from 'express-validator';
 
-import { deleteAccount, login, logout, signup } from '../controllers/auth';
+import { deleteAccount } from '../controllers/auth/deleteAccount';
+import { login } from '../controllers/auth/login';
+import { logout } from '../controllers/auth/logout';
+import { signup } from '../controllers/auth/signup';
 import { authorization } from '../middlewares/authorization';
 
 export const authRouter = express.Router();
