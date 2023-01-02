@@ -7,6 +7,7 @@ import express from 'express';
 import helmet from 'helmet';
 
 import { authRouter } from './routes/auth';
+import { seriesRouter } from './routes/series';
 
 dotenv.config();
 
@@ -19,3 +20,4 @@ app.use(cookieParser());
 
 // routes
 app.use('/api/auth', authRouter);
+app.use('/api', seriesRouter);
