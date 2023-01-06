@@ -11,7 +11,7 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { deleteAccount } from './deleteAccount';
+import { deleteAccount, DeleteAccountReqBody } from './deleteAccount';
 
 describe('deleteAccount', () => {
   let testDataSource: DataSource;
@@ -54,7 +54,16 @@ describe('deleteAccount', () => {
     const { res } = getMockRes();
     const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
-    await deleteAccount(req as Request, res as Response);
+    await deleteAccount(
+      req as unknown as Request<
+        unknown,
+        unknown,
+        DeleteAccountReqBody,
+        unknown,
+        Record<string, any>
+      >,
+      res as Response
+    );
     expect(res.clearCookie).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(HttpCode.FORBIDDEN);
     expect(res.json).toHaveBeenCalledWith({
@@ -74,7 +83,16 @@ describe('deleteAccount', () => {
     const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
 
-    await deleteAccount(req as Request, res as Response);
+    await deleteAccount(
+      req as unknown as Request<
+        unknown,
+        unknown,
+        DeleteAccountReqBody,
+        unknown,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(res.clearCookie).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(HttpCode.NOT_FOUND);
@@ -94,7 +112,16 @@ describe('deleteAccount', () => {
     const { res } = getMockRes();
     const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
-    await deleteAccount(req as Request, res as Response);
+    await deleteAccount(
+      req as unknown as Request<
+        unknown,
+        unknown,
+        DeleteAccountReqBody,
+        unknown,
+        Record<string, any>
+      >,
+      res as Response
+    );
     expect(res.clearCookie).toHaveBeenCalledWith('access_token');
     expect(res.status).toHaveBeenCalledWith(HttpCode.OK);
     expect(res.json).toHaveBeenCalledWith({

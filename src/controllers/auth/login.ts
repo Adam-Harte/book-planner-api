@@ -6,7 +6,21 @@ import jwt from 'jsonwebtoken';
 import { UsersRepository } from '../../repositories/users';
 import { HttpCode } from '../../types/httpCode';
 
-export const login = async (req: Request, res: Response) => {
+export interface LoginReqBody {
+  email: string;
+  password: string;
+}
+
+export const login = async (
+  req: Request<
+    Record<string, any> | undefined,
+    unknown,
+    LoginReqBody,
+    Record<string, any> | undefined,
+    Record<string, any>
+  >,
+  res: Response
+) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {

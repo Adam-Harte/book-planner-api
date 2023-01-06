@@ -11,7 +11,7 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { login } from './login';
+import { login, LoginReqBody } from './login';
 
 describe('login', () => {
   let testDataSource: DataSource;
@@ -49,7 +49,16 @@ describe('login', () => {
     const { res } = getMockRes();
     const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
-    await login(req as Request, res as Response);
+    await login(
+      req as unknown as Request<
+        Record<string, any> | undefined,
+        unknown,
+        LoginReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(res.status).toHaveBeenCalledWith(HttpCode.UNAUTHORIZED);
     expect(res.cookie).not.toHaveBeenCalled();
@@ -69,7 +78,16 @@ describe('login', () => {
     const { res } = getMockRes();
     const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
-    await login(req as Request, res as Response);
+    await login(
+      req as unknown as Request<
+        Record<string, any> | undefined,
+        unknown,
+        LoginReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(res.status).toHaveBeenCalledWith(HttpCode.UNAUTHORIZED);
     expect(res.cookie).not.toHaveBeenCalled();
@@ -89,7 +107,16 @@ describe('login', () => {
     const { res } = getMockRes();
     const user = await usersRepository.create(fakeUser);
     await usersRepository.save(user);
-    await login(req as Request, res as Response);
+    await login(
+      req as unknown as Request<
+        Record<string, any> | undefined,
+        unknown,
+        LoginReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(res.status).toHaveBeenCalledWith(HttpCode.OK);
     expect(res.cookie).toHaveBeenCalledWith(
