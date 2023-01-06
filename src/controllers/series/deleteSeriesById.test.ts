@@ -16,7 +16,7 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { deleteSeriesById } from './deleteSeriesById';
+import { deleteSeriesById, DeleteSeriesReqParams } from './deleteSeriesById';
 
 describe('deleteSeriesById', () => {
   let testDataSource: DataSource;
@@ -70,7 +70,16 @@ describe('deleteSeriesById', () => {
     });
     const { res } = getMockRes();
 
-    await deleteSeriesById(req as Request, res as Response);
+    await deleteSeriesById(
+      req as unknown as Request<
+        DeleteSeriesReqParams,
+        unknown,
+        unknown,
+        unknown,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(SeriesRepository.delete).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(HttpCode.FORBIDDEN);
@@ -97,7 +106,16 @@ describe('deleteSeriesById', () => {
     });
     const { res } = getMockRes();
 
-    await deleteSeriesById(req as Request, res as Response);
+    await deleteSeriesById(
+      req as unknown as Request<
+        DeleteSeriesReqParams,
+        unknown,
+        unknown,
+        unknown,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(SeriesRepository.delete).toHaveBeenCalledWith(1);
     expect(res.status).toHaveBeenCalledWith(HttpCode.OK);

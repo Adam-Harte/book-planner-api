@@ -3,7 +3,20 @@ import { Request, Response } from 'express';
 import { SeriesRepository } from '../../repositories/series';
 import { HttpCode } from '../../types/httpCode';
 
-export const deleteSeriesById = async (req: Request, res: Response) => {
+export interface DeleteSeriesReqParams {
+  seriesId: string;
+}
+
+export const deleteSeriesById = async (
+  req: Request<
+    DeleteSeriesReqParams,
+    unknown,
+    unknown,
+    unknown,
+    Record<string, any>
+  >,
+  res: Response
+) => {
   const { seriesId } = req.params;
 
   try {

@@ -3,7 +3,20 @@ import { Request, Response } from 'express';
 import { SeriesRepository } from '../../repositories/series';
 import { HttpCode } from '../../types/httpCode';
 
-export const getSeriesById = async (req: Request, res: Response) => {
+export interface GetSeriesByIdReqParams {
+  seriesId: string;
+}
+
+export const getSeriesById = async (
+  req: Request<
+    GetSeriesByIdReqParams,
+    unknown,
+    unknown,
+    unknown,
+    Record<string, any>
+  >,
+  res: Response
+) => {
   const { seriesId } = req.params;
 
   try {

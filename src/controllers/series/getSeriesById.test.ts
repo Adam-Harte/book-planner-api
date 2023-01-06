@@ -16,7 +16,7 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { getSeriesById } from './getSeriesById';
+import { getSeriesById, GetSeriesByIdReqParams } from './getSeriesById';
 
 describe('getSeriesById', () => {
   let testDataSource: DataSource;
@@ -67,7 +67,16 @@ describe('getSeriesById', () => {
     });
     const { res } = getMockRes();
 
-    await getSeriesById(req as Request, res as Response);
+    await getSeriesById(
+      req as unknown as Request<
+        GetSeriesByIdReqParams,
+        unknown,
+        unknown,
+        unknown,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(SeriesRepository.getByUserIdAndSeriesId).toHaveBeenCalledWith(2, 1);
     expect(res.status).toHaveBeenCalledWith(HttpCode.FORBIDDEN);
@@ -94,7 +103,16 @@ describe('getSeriesById', () => {
     });
     const { res } = getMockRes();
 
-    await getSeriesById(req as Request, res as Response);
+    await getSeriesById(
+      req as unknown as Request<
+        GetSeriesByIdReqParams,
+        unknown,
+        unknown,
+        unknown,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(SeriesRepository.getByUserIdAndSeriesId).toHaveBeenCalledWith(1, 1);
     expect(res.status).toHaveBeenCalledWith(HttpCode.OK);

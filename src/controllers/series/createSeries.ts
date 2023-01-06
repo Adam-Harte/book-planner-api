@@ -1,11 +1,26 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 
+import { Genre } from '../../models/types/enums';
 import { SeriesRepository } from '../../repositories/series';
 import { UsersRepository } from '../../repositories/users';
 import { HttpCode } from '../../types/httpCode';
 
-export const createSeries = async (req: Request, res: Response) => {
+export interface CreateSeriesReqBody {
+  name: string;
+  genre?: Genre;
+}
+
+export const createSeries = async (
+  req: Request<
+    Record<string, any> | undefined,
+    unknown,
+    CreateSeriesReqBody,
+    Record<string, any> | undefined,
+    Record<string, any>
+  >,
+  res: Response
+) => {
   const { name, genre } = req.body;
   const errors = validationResult(req);
 
