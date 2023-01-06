@@ -17,6 +17,7 @@ import { Creatures } from './creatures';
 import { Families } from './families';
 import { Gods } from './gods';
 import { Governments } from './governments';
+import { Groups } from './groups';
 import { Histories } from './histories';
 import { Languages } from './languages';
 import { Legends } from './legends';
@@ -195,6 +196,22 @@ export class Books extends CreatedAndUpdated {
     },
   })
   battles: Relation<Battles>[];
+
+  @ManyToMany(() => Groups, (groups) => groups.books, {
+    onDelete: 'CASCADE',
+  })
+  @JoinTable({
+    name: 'books_groups',
+    joinColumn: {
+      name: 'book_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'group_id',
+      referencedColumnName: 'id',
+    },
+  })
+  groups: Relation<Groups>[];
 
   @ManyToMany(() => Creatures, (creatures) => creatures.books, {
     onDelete: 'CASCADE',
