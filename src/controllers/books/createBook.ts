@@ -2,26 +2,32 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 
 import { Genre } from '../../models/types/enums';
+import { BooksRepository } from '../../repositories/books';
 import { SeriesRepository } from '../../repositories/series';
 import { UsersRepository } from '../../repositories/users';
 import { HttpCode } from '../../types/httpCode';
 
-export interface CreateSeriesReqBody {
+export interface CreateBookReqBody {
   name: string;
   genre?: Genre;
 }
 
-export const createSeries = async (
+export interface CreateBookReqQuery {
+  seriesId?: string;
+}
+
+export const createBook = async (
   req: Request<
     Record<string, any> | undefined,
     unknown,
-    CreateSeriesReqBody,
-    Record<string, any> | undefined,
+    CreateBookReqBody,
+    CreateBookReqQuery,
     Record<string, any>
   >,
   res: Response
 ) => {
   const { name, genre } = req.body;
+  const { seriesId } = req.query;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -38,19 +44,29 @@ export const createSeries = async (
       },
     });
 
-    const series = await SeriesRepository.create({
+    let series;
+
+    if (seriesId) {
+      series = await SeriesRepository.getByUserIdAndSeriesId(
+        parseInt(req.userId as string, 10),
+        parseInt(seriesId, 10)
+      );
+    }
+
+    const book = await BooksRepository.create({
       name,
       genre,
+      ...(series && { series }),
       ...(user && { user }),
     });
     const {
       id,
       name: dataName,
       genre: dataGenre,
-    } = await SeriesRepository.save(series);
+    } = await BooksRepository.save(book);
 
     return res.status(HttpCode.CREATED).json({
-      message: 'Series created.',
+      message: 'Book created.',
       data: {
         id,
         name: dataName,

@@ -3,7 +3,20 @@ import { Request, Response } from 'express';
 import { UsersRepository } from '../../repositories/users';
 import { HttpCode } from '../../types/httpCode';
 
-export const deleteAccount = async (req: Request, res: Response) => {
+export interface DeleteAccountReqBody {
+  id: number;
+}
+
+export const deleteAccount = async (
+  req: Request<
+    unknown,
+    unknown,
+    DeleteAccountReqBody,
+    unknown,
+    Record<string, any>
+  >,
+  res: Response
+) => {
   const { id } = req.body;
 
   if (req.userId !== id.toString()) {

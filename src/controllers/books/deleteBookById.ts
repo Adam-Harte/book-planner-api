@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 
-import { SeriesRepository } from '../../repositories/series';
+import { BooksRepository } from '../../repositories/books';
 import { HttpCode } from '../../types/httpCode';
 
-export interface DeleteSeriesReqParams {
-  seriesId: string;
+export interface DeleteBookReqParams {
+  bookId: string;
 }
 
-export const deleteSeriesById = async (
+export const deleteBookById = async (
   req: Request<
-    DeleteSeriesReqParams,
+    DeleteBookReqParams,
     unknown,
     unknown,
     unknown,
@@ -17,24 +17,24 @@ export const deleteSeriesById = async (
   >,
   res: Response
 ) => {
-  const { seriesId } = req.params;
+  const { bookId } = req.params;
 
   try {
-    const series = await SeriesRepository.getByUserIdAndSeriesId(
+    const book = await BooksRepository.getByUserIdAndBookId(
       parseInt(req.userId as string, 10),
-      parseInt(seriesId, 10)
+      parseInt(bookId, 10)
     );
 
-    if (!series) {
+    if (!book) {
       return res.status(HttpCode.FORBIDDEN).json({
         message: 'Forbidden account action.',
       });
     }
 
-    await SeriesRepository.delete(parseInt(seriesId, 10));
+    await BooksRepository.delete(parseInt(bookId, 10));
 
     return res.status(HttpCode.OK).json({
-      message: 'Series deleted.',
+      message: 'Book deleted.',
     });
   } catch (err) {
     return res.status(HttpCode.INTERNAL_SERVER_ERROR).json({

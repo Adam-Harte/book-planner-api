@@ -5,7 +5,13 @@ import { AuthTokenPayload } from '../types/authTokenPayload';
 import { HttpCode } from '../types/httpCode';
 
 export const authorization = (
-  req: Request,
+  req: Request<
+    Record<string, string> | unknown,
+    Record<string, any> | unknown,
+    Record<string, any> | unknown,
+    Record<string, any> | unknown,
+    Record<string, any>
+  >,
   res: Response,
   next: NextFunction
 ) => {

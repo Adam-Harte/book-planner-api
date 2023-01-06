@@ -13,9 +13,10 @@
     "lint:fix": "npm run lint -- --fix",
     "prettier": "prettier --write \"src/**/*.{ts,json}\"",
     "prettier:check": "prettier --check \"src/**/*.{ts,json}\"",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "jest --watchAll=false --maxWorkers=50%",
+    "test:watch": "jest --watch --maxWorkers=25%",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --watchAll=false --runInBand"
   },
   "repository": {
     "type": "git",

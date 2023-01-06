@@ -2,31 +2,31 @@ import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 
 import { Genre } from '../../models/types/enums';
-import { SeriesRepository } from '../../repositories/series';
+import { BooksRepository } from '../../repositories/books';
 import { HttpCode } from '../../types/httpCode';
 
-export interface updateSeriesReqParams {
-  seriesId: string;
+export interface updateBookReqParams {
+  bookId: string;
 }
 
-export interface updateSeriesReqBody {
+export interface updateBookReqBody {
   updatedData: {
     name?: string;
     genre?: Genre;
   };
 }
 
-export const updateSeriesById = async (
+export const updateBookById = async (
   req: Request<
-    updateSeriesReqParams,
+    updateBookReqParams,
     unknown,
-    updateSeriesReqBody,
+    updateBookReqBody,
     Record<string, any> | undefined,
     Record<string, any>
   >,
   res: Response
 ) => {
-  const { seriesId } = req.params;
+  const { bookId } = req.params;
   const { updatedData } = req.body;
   const errors = validationResult(req);
 
@@ -38,26 +38,26 @@ export const updateSeriesById = async (
   }
 
   try {
-    const series = await SeriesRepository.getByUserIdAndSeriesId(
+    const book = await BooksRepository.getByUserIdAndBookId(
       parseInt(req.userId as string, 10),
-      parseInt(seriesId, 10)
+      parseInt(bookId, 10)
     );
 
-    if (!series) {
+    if (!book) {
       return res.status(HttpCode.FORBIDDEN).json({
         message: 'Forbidden account action.',
       });
     }
 
-    const updatedSeries = {
-      ...series,
+    const updatedBook = {
+      ...book,
       ...updatedData,
     };
 
-    const { id, name, genre } = await SeriesRepository.save(updatedSeries);
+    const { id, name, genre } = await BooksRepository.save(updatedBook);
 
     return res.status(HttpCode.OK).json({
-      message: 'Series updated.',
+      message: 'Book updated.',
       data: {
         id,
         name,

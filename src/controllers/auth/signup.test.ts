@@ -11,7 +11,7 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { signup } from './signup';
+import { signup, SignupReqBody } from './signup';
 
 describe('signup', () => {
   let testDataSource: DataSource;
@@ -56,7 +56,16 @@ describe('signup', () => {
     const { res } = getMockRes();
     const user = await UsersRepository.create(req.body);
     await UsersRepository.save(user);
-    await signup(req as Request, res as Response);
+    await signup(
+      req as unknown as Request<
+        Record<string, any> | undefined,
+        unknown,
+        SignupReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(res.status).toHaveBeenCalledWith(HttpCode.UNAUTHORIZED);
     expect(res.cookie).not.toHaveBeenCalled();
@@ -73,7 +82,16 @@ describe('signup', () => {
       },
     });
     const { res } = getMockRes();
-    await signup(req as Request, res as Response);
+    await signup(
+      req as unknown as Request<
+        Record<string, any> | undefined,
+        unknown,
+        SignupReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(UsersRepository.create).toHaveBeenCalledWith({
       ...fakeUser,

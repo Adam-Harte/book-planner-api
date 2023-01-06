@@ -1,27 +1,58 @@
 import express from 'express';
 import { body } from 'express-validator';
 
-import { createSeries } from '../controllers/series/createSeries';
-import { deleteSeriesById } from '../controllers/series/deleteSeriesById';
+import {
+  createSeries,
+  CreateSeriesReqBody,
+} from '../controllers/series/createSeries';
+import {
+  deleteSeriesById,
+  DeleteSeriesReqParams,
+} from '../controllers/series/deleteSeriesById';
 import { getSeries } from '../controllers/series/getSeries';
-import { getSeriesById } from '../controllers/series/getSeriesById';
-import { updateSeriesById } from '../controllers/series/updateSeriesById';
+import {
+  getSeriesById,
+  GetSeriesByIdReqParams,
+} from '../controllers/series/getSeriesById';
+import {
+  updateSeriesById,
+  updateSeriesReqBody,
+  updateSeriesReqParams,
+} from '../controllers/series/updateSeriesById';
 import { authorization } from '../middlewares/authorization';
 
 export const seriesRouter = express.Router();
 
 seriesRouter.get('/series', authorization, getSeries);
 
-seriesRouter.post(
+seriesRouter.post<
+  Record<string, any> | undefined,
+  unknown,
+  CreateSeriesReqBody,
+  Record<string, string>,
+  Record<string, any>
+>(
   '/series',
   authorization,
   body('name').exists().withMessage('name field is required.'),
   createSeries
 );
 
-seriesRouter.get('/series/:seriesId', authorization, getSeriesById);
+seriesRouter.get<
+  GetSeriesByIdReqParams,
+  unknown,
+  unknown,
+  unknown,
+  Record<string, any>
+>('/series/:seriesId', authorization, getSeriesById);
 
-seriesRouter.patch(
+seriesRouter.patch<
+  updateSeriesReqParams,
+  unknown,
+  updateSeriesReqBody,
+  Record<string, any> | undefined,
+  Record<string, any>
+>(
   '/series/:seriesId',
   authorization,
   body('updatedData')
@@ -31,4 +62,10 @@ seriesRouter.patch(
   updateSeriesById
 );
 
-seriesRouter.delete('/series/:seriesId', authorization, deleteSeriesById);
+seriesRouter.delete<
+  DeleteSeriesReqParams,
+  unknown,
+  unknown,
+  unknown,
+  Record<string, any>
+>('/series/:seriesId', authorization, deleteSeriesById);

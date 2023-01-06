@@ -16,7 +16,11 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { updateSeriesById } from './updateSeriesById';
+import {
+  updateSeriesById,
+  updateSeriesReqBody,
+  updateSeriesReqParams,
+} from './updateSeriesById';
 
 describe('updateSeriesById', () => {
   let testDataSource: DataSource;
@@ -76,7 +80,16 @@ describe('updateSeriesById', () => {
     });
     const { res } = getMockRes();
 
-    await updateSeriesById(req as Request, res as Response);
+    await updateSeriesById(
+      req as unknown as Request<
+        updateSeriesReqParams,
+        unknown,
+        updateSeriesReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(SeriesRepository.save).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(HttpCode.FORBIDDEN);
@@ -109,7 +122,16 @@ describe('updateSeriesById', () => {
     });
     const { res } = getMockRes();
 
-    await updateSeriesById(req as Request, res as Response);
+    await updateSeriesById(
+      req as unknown as Request<
+        updateSeriesReqParams,
+        unknown,
+        updateSeriesReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(SeriesRepository.save).toHaveBeenCalledWith(
       expect.objectContaining(updatedFakeSeries)

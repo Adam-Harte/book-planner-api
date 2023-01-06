@@ -3,12 +3,9 @@ import { Request, Response } from 'express';
 import { IBackup } from 'pg-mem';
 import { DataSource } from 'typeorm/data-source';
 
-import { generateMockSeries } from '../../mockData/series';
+import { generateMockBook } from '../../mockData/books';
 import { generateMockUser } from '../../mockData/users';
-import {
-  getSeriesRepository,
-  SeriesRepository,
-} from '../../repositories/series';
+import { BooksRepository, getBooksRepository } from '../../repositories/books';
 import { getUsersRepository } from '../../repositories/users';
 import {
   destroyTestDataSource,
@@ -16,27 +13,24 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { deleteSeriesById, DeleteSeriesReqParams } from './deleteSeriesById';
+import { getBookById, GetBookByIdReqParams } from './getBookById';
 
-describe('deleteSeriesById', () => {
+describe('getBookById', () => {
   let testDataSource: DataSource;
   let dbBackup: IBackup;
+  let booksRepository: any;
   let usersRepository: any;
-  let seriesRepository: any;
   let fakeUser: any;
   let user: any;
 
   beforeAll(async () => {
     testDataSource = await setupTestDataSource();
+    booksRepository = getBooksRepository(testDataSource);
     usersRepository = getUsersRepository(testDataSource);
-    seriesRepository = getSeriesRepository(testDataSource);
-    SeriesRepository.delete = jest
+    BooksRepository.getByUserIdAndBookId = jest
       .fn()
-      .mockImplementation((id: number) => seriesRepository.delete(id));
-    SeriesRepository.getByUserIdAndSeriesId = jest
-      .fn()
-      .mockImplementation((userId: number, seriesId: number) =>
-        seriesRepository.getByUserIdAndSeriesId(userId, seriesId)
+      .mockImplementation((userId: number, bookId: number) =>
+        booksRepository.getByUserIdAndBookId(userId, bookId)
       );
     dbBackup = testDb.backup();
   });
@@ -52,27 +46,27 @@ describe('deleteSeriesById', () => {
     await destroyTestDataSource(testDataSource);
   });
 
-  it('should fail if the series being deleted does not belong to the user', async () => {
-    const fakeSeries1 = generateMockSeries(user);
-    const fakeSeries2 = generateMockSeries(user);
+  it('should fail if the book does not belong to the user', async () => {
+    const fakeBook1 = generateMockBook(user);
+    const fakeBook2 = generateMockBook(user);
 
-    const series1 = await seriesRepository.create(fakeSeries1);
-    await seriesRepository.save(series1);
+    const series1 = await booksRepository.create(fakeBook1);
+    await booksRepository.save(series1);
 
-    const series2 = await seriesRepository.create(fakeSeries2);
-    await seriesRepository.save(series2);
+    const series2 = await booksRepository.create(fakeBook2);
+    await booksRepository.save(series2);
 
     const req = getMockReq({
       params: {
-        seriesId: '1',
+        bookId: '1',
       },
       userId: '2',
     });
     const { res } = getMockRes();
 
-    await deleteSeriesById(
+    await getBookById(
       req as unknown as Request<
-        DeleteSeriesReqParams,
+        GetBookByIdReqParams,
         unknown,
         unknown,
         unknown,
@@ -81,34 +75,34 @@ describe('deleteSeriesById', () => {
       res as Response
     );
 
-    expect(SeriesRepository.delete).not.toHaveBeenCalled();
+    expect(BooksRepository.getByUserIdAndBookId).toHaveBeenCalledWith(2, 1);
     expect(res.status).toHaveBeenCalledWith(HttpCode.FORBIDDEN);
     expect(res.json).toHaveBeenCalledWith({
       message: 'Forbidden account action.',
     });
   });
 
-  it('should delete the series by a specific id', async () => {
-    const fakeSeries1 = generateMockSeries(user);
-    const fakeSeries2 = generateMockSeries(user);
+  it('should get one book by a specific id', async () => {
+    const fakeBook1 = generateMockBook(user);
+    const fakeBook2 = generateMockBook(user);
 
-    const series1 = await seriesRepository.create(fakeSeries1);
-    await seriesRepository.save(series1);
+    const book1 = await booksRepository.create(fakeBook1);
+    await booksRepository.save(book1);
 
-    const series2 = await seriesRepository.create(fakeSeries2);
-    await seriesRepository.save(series2);
+    const book2 = await booksRepository.create(fakeBook2);
+    await booksRepository.save(book2);
 
     const req = getMockReq({
       params: {
-        seriesId: '1',
+        bookId: '1',
       },
       userId: '1',
     });
     const { res } = getMockRes();
 
-    await deleteSeriesById(
+    await getBookById(
       req as unknown as Request<
-        DeleteSeriesReqParams,
+        GetBookByIdReqParams,
         unknown,
         unknown,
         unknown,
@@ -117,10 +111,15 @@ describe('deleteSeriesById', () => {
       res as Response
     );
 
-    expect(SeriesRepository.delete).toHaveBeenCalledWith(1);
+    expect(BooksRepository.getByUserIdAndBookId).toHaveBeenCalledWith(1, 1);
     expect(res.status).toHaveBeenCalledWith(HttpCode.OK);
     expect(res.json).toHaveBeenCalledWith({
-      message: 'Series deleted.',
+      message: 'Book by id fetched.',
+      data: {
+        id: 1,
+        name: fakeBook1.name,
+        genre: fakeBook1.genre,
+      },
     });
   });
 });

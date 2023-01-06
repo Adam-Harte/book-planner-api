@@ -16,7 +16,7 @@ import {
   testDb,
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
-import { createSeries } from './createSeries';
+import { createSeries, CreateSeriesReqBody } from './createSeries';
 
 describe('createSeries', () => {
   let testDataSource: DataSource;
@@ -67,7 +67,16 @@ describe('createSeries', () => {
       userId: '1',
     });
     const { res } = getMockRes();
-    await createSeries(req as Request, res as Response);
+    await createSeries(
+      req as unknown as Request<
+        Record<string, any> | undefined,
+        unknown,
+        CreateSeriesReqBody,
+        Record<string, any> | undefined,
+        Record<string, any>
+      >,
+      res as Response
+    );
 
     expect(SeriesRepository.create).toHaveBeenCalledWith({
       name: req.body.name,

@@ -9,6 +9,7 @@ import {
   Relation,
 } from 'typeorm';
 
+import { Books } from './books';
 import { Characters } from './characters';
 import { Series } from './series';
 import { Settings } from './settings';
@@ -51,4 +52,9 @@ export class Groups extends CommonWithImage {
     },
   })
   characters: Relation<Characters>[];
+
+  @ManyToMany(() => Books, (books) => books.groups, {
+    onDelete: 'CASCADE',
+  })
+  books: Relation<Books>[];
 }
