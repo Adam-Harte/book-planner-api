@@ -17,8 +17,8 @@ import {
 import { getBooks, GetBooksReqQuery } from '../controllers/books/getBooks';
 import {
   updateBookById,
-  updateBookReqBody,
-  updateBookReqParams,
+  UpdateBookReqBody,
+  UpdateBookReqParams,
 } from '../controllers/books/updateBookById';
 import { authorization } from '../middlewares/authorization';
 
@@ -54,9 +54,9 @@ booksRouter.get<
 >('/books/:bookId', authorization, getBookById);
 
 booksRouter.patch<
-  updateBookReqParams,
+  UpdateBookReqParams,
   unknown,
-  updateBookReqBody,
+  UpdateBookReqBody,
   Record<string, any> | undefined,
   Record<string, any>
 >(
