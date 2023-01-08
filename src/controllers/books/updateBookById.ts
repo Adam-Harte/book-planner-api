@@ -5,11 +5,11 @@ import { Genre } from '../../models/types/enums';
 import { BooksRepository } from '../../repositories/books';
 import { HttpCode } from '../../types/httpCode';
 
-export interface updateBookReqParams {
+export interface UpdateBookReqParams {
   bookId: string;
 }
 
-export interface updateBookReqBody {
+export interface UpdateBookReqBody {
   updatedData: {
     name?: string;
     genre?: Genre;
@@ -18,9 +18,9 @@ export interface updateBookReqBody {
 
 export const updateBookById = async (
   req: Request<
-    updateBookReqParams,
+    UpdateBookReqParams,
     unknown,
-    updateBookReqBody,
+    UpdateBookReqBody,
     Record<string, any> | undefined,
     Record<string, any>
   >,

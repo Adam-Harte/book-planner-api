@@ -15,8 +15,8 @@ import {
 import { HttpCode } from '../../types/httpCode';
 import {
   updateBookById,
-  updateBookReqBody,
-  updateBookReqParams,
+  UpdateBookReqBody,
+  UpdateBookReqParams,
 } from './updateBookById';
 
 describe('updateBookById', () => {
@@ -79,9 +79,9 @@ describe('updateBookById', () => {
 
     await updateBookById(
       req as unknown as Request<
-        updateBookReqParams,
+        UpdateBookReqParams,
         unknown,
-        updateBookReqBody,
+        UpdateBookReqBody,
         Record<string, any> | undefined,
         Record<string, any>
       >,
@@ -121,9 +121,9 @@ describe('updateBookById', () => {
 
     await updateBookById(
       req as unknown as Request<
-        updateBookReqParams,
+        UpdateBookReqParams,
         unknown,
-        updateBookReqBody,
+        UpdateBookReqBody,
         Record<string, any> | undefined,
         Record<string, any>
       >,

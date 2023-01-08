@@ -1,10 +1,10 @@
 import { Column, Entity } from 'typeorm';
 
 import { HeightMetric, WeightMetric } from '../types/enums';
-import { CommonWithImage } from './commonWithImage';
+import { CreatedAndUpdated } from './createdAndUpdated';
 
 @Entity()
-export class Being extends CommonWithImage {
+export class Being extends CreatedAndUpdated {
   @Column({
     type: 'float',
     nullable: true,
@@ -46,4 +46,10 @@ export class Being extends CommonWithImage {
     nullable: true,
   })
   personalityDescription: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  image: string;
 }
