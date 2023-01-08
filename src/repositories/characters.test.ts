@@ -22,6 +22,12 @@ describe('Characters repository', () => {
   let charactersRepository: any;
   let usersRepository: any;
   let seriesRepository: any;
+  let fakeUser: any;
+  let user: any;
+  let fakeSeries: any;
+  let series: any;
+  let fakeBook: any;
+  let book: any;
 
   beforeAll(async () => {
     testDataSource = await setupTestDataSource();
@@ -32,9 +38,17 @@ describe('Characters repository', () => {
     dbBackup = testDb.backup();
   });
 
-  beforeEach(() => {
+  beforeEach(async () => {
     dbBackup.restore();
-    jest.clearAllMocks();
+    fakeUser = generateMockUser();
+    user = await usersRepository.create(fakeUser);
+    await usersRepository.save(user);
+    fakeSeries = generateMockSeries(user);
+    series = await seriesRepository.create(fakeSeries);
+    await seriesRepository.save(series);
+    fakeBook = generateMockBook(user);
+    book = await booksRepository.create(fakeBook);
+    await booksRepository.save(book);
   });
 
   afterAll(async () => {
@@ -42,28 +56,17 @@ describe('Characters repository', () => {
   });
 
   it('returns all characters found with matching user id and series id', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeSeries1 = generateMockSeries(savedUser);
-    const series = await seriesRepository.create(fakeSeries1);
-    const savedSeries = await seriesRepository.save(series);
-
-    const fakeCharacter1 = generateMockCharacter(savedSeries);
-    const fakeCharacter2 = generateMockCharacter(savedSeries);
-    const fakeCharacter3 = generateMockCharacter(savedSeries);
+    const fakeCharacter1 = generateMockCharacter(series);
+    const fakeCharacter2 = generateMockCharacter(series);
 
     const character1 = await charactersRepository.create(fakeCharacter1);
     await charactersRepository.save(character1);
     const character2 = await charactersRepository.create(fakeCharacter2);
     await charactersRepository.save(character2);
-    const character3 = await charactersRepository.create(fakeCharacter3);
-    await charactersRepository.save(character3);
 
     const result = await charactersRepository.getAllByUserIdAndSeriesId(
-      savedUser.id,
-      savedSeries.id
+      user.id,
+      series.id
     );
 
     const {
@@ -114,24 +117,13 @@ describe('Characters repository', () => {
   });
 
   it('returns empty array if no characters found by matching user id and series id', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeSeries1 = generateMockSeries(savedUser);
-    const series = await seriesRepository.create(fakeSeries1);
-    await seriesRepository.save(series);
-
     const fakeCharacter1 = generateMockCharacter();
     const fakeCharacter2 = generateMockCharacter();
-    const fakeCharacter3 = generateMockCharacter();
 
     const character1 = await charactersRepository.create(fakeCharacter1);
     await charactersRepository.save(character1);
     const character2 = await charactersRepository.create(fakeCharacter2);
     await charactersRepository.save(character2);
-    const character3 = await charactersRepository.create(fakeCharacter3);
-    await charactersRepository.save(character3);
 
     const result = await charactersRepository.getAllByUserIdAndSeriesId(
       user.id,
@@ -142,28 +134,17 @@ describe('Characters repository', () => {
   });
 
   it('returns all characters found with matching user id and book id', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeBook = generateMockBook(savedUser);
-    const book = await booksRepository.create(fakeBook);
-    const savedBook = await booksRepository.save(book);
-
-    const fakeCharacter1 = generateMockCharacter({}, [savedBook]);
-    const fakeCharacter2 = generateMockCharacter({}, [savedBook]);
-    const fakeCharacter3 = generateMockCharacter({}, []);
+    const fakeCharacter1 = generateMockCharacter({}, [book]);
+    const fakeCharacter2 = generateMockCharacter({}, [book]);
 
     const character1 = await charactersRepository.create(fakeCharacter1);
     await charactersRepository.save(character1);
     const character2 = await charactersRepository.create(fakeCharacter2);
     await charactersRepository.save(character2);
-    const character3 = await charactersRepository.create(fakeCharacter3);
-    await charactersRepository.save(character3);
 
     const result = await charactersRepository.getAllByUserIdAndBookId(
-      savedUser.id,
-      savedBook.id
+      user.id,
+      book.id
     );
 
     const {
@@ -214,43 +195,24 @@ describe('Characters repository', () => {
   });
 
   it('returns empty array if no characters found by matching user id and book id', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeBook = generateMockBook(savedUser);
-    const book = await booksRepository.create(fakeBook);
-    const savedBook = await booksRepository.save(book);
-
     const fakeCharacter1 = generateMockCharacter({}, []);
     const fakeCharacter2 = generateMockCharacter({}, []);
-    const fakeCharacter3 = generateMockCharacter({}, []);
 
     const character1 = await charactersRepository.create(fakeCharacter1);
     await charactersRepository.save(character1);
     const character2 = await charactersRepository.create(fakeCharacter2);
     await charactersRepository.save(character2);
-    const character3 = await charactersRepository.create(fakeCharacter3);
-    await charactersRepository.save(character3);
 
     const result = await charactersRepository.getAllByUserIdAndBookId(
-      savedUser.id,
-      savedBook.id
+      user.id,
+      book.id
     );
 
     expect(result).toEqual([]);
   });
 
   it('returns a character found with a specific user id and series id', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeSeries = generateMockSeries(savedUser);
-    const series = await seriesRepository.create(fakeSeries);
-    const savedSeries = await seriesRepository.save(series);
-
-    const fakeCharacter = generateMockCharacter(savedSeries);
+    const fakeCharacter = generateMockCharacter(series);
     const character = await charactersRepository.create(fakeCharacter);
     await charactersRepository.save(character);
 
@@ -286,15 +248,7 @@ describe('Characters repository', () => {
   });
 
   it('returns a character found with a specific user id and series id and its relations', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeSeries = generateMockSeries(savedUser);
-    const series = await seriesRepository.create(fakeSeries);
-    const savedSeries = await seriesRepository.save(series);
-
-    const fakeCharacter = generateMockCharacter(savedSeries);
+    const fakeCharacter = generateMockCharacter(series);
     const character = await charactersRepository.create(fakeCharacter);
     await charactersRepository.save(character);
 
@@ -335,42 +289,21 @@ describe('Characters repository', () => {
   });
 
   it('returns null if no character found by a specific user id and series id', async () => {
-    const fakeUser1 = generateMockUser();
-    const fakeUser2 = generateMockUser();
-
-    const user1 = await usersRepository.create(fakeUser1);
-    await usersRepository.save(user1);
-
-    const user2 = await usersRepository.create(fakeUser2);
-    await usersRepository.save(user2);
-
-    const fakeSeries = generateMockSeries(user1);
-    const series = await seriesRepository.create(fakeSeries);
-    const savedSeries = await seriesRepository.save(series);
-
-    const fakeCharacter = generateMockCharacter(savedSeries);
+    const fakeCharacter = generateMockCharacter(series);
     const character = await charactersRepository.create(fakeCharacter);
     await charactersRepository.save(character);
 
     const result = await charactersRepository.getByUserIdAndSeriesId(
       character.id,
-      user2.id,
-      series.id
+      user.id,
+      2
     );
 
     expect(result).toBe(null);
   });
 
-  it('returns a book found with a specific user id and book id', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeBook = generateMockBook(savedUser);
-    const book = await booksRepository.create(fakeBook);
-    const savedBook = await booksRepository.save(book);
-
-    const fakeCharacter = generateMockCharacter({}, [savedBook]);
+  it('returns a character found with a specific user id and book id', async () => {
+    const fakeCharacter = generateMockCharacter({}, [book]);
     const character = await charactersRepository.create(fakeCharacter);
     await charactersRepository.save(character);
 
@@ -406,15 +339,7 @@ describe('Characters repository', () => {
   });
 
   it('returns a character found with a specific user id and book id and its relations', async () => {
-    const fakeUser = generateMockUser();
-    const user = await usersRepository.create(fakeUser);
-    const savedUser = await usersRepository.save(user);
-
-    const fakeBook = generateMockBook(savedUser);
-    const book = await booksRepository.create(fakeBook);
-    const savedBook = await booksRepository.save(book);
-
-    const fakeCharacter = generateMockCharacter({}, [savedBook]);
+    const fakeCharacter = generateMockCharacter({}, [book]);
     const character = await charactersRepository.create(fakeCharacter);
     await charactersRepository.save(character);
 
@@ -455,27 +380,14 @@ describe('Characters repository', () => {
   });
 
   it('returns null if no character found by a specific user id and book id', async () => {
-    const fakeUser1 = generateMockUser();
-    const fakeUser2 = generateMockUser();
-
-    const user1 = await usersRepository.create(fakeUser1);
-    await usersRepository.save(user1);
-
-    const user2 = await usersRepository.create(fakeUser2);
-    await usersRepository.save(user2);
-
-    const fakeBook = generateMockBook(user1);
-    const book = await booksRepository.create(fakeBook);
-    const savedBook = await booksRepository.save(book);
-
-    const fakeCharacter = generateMockCharacter({}, [savedBook]);
+    const fakeCharacter = generateMockCharacter({}, [book]);
     const character = await charactersRepository.create(fakeCharacter);
     await charactersRepository.save(character);
 
     const result = await charactersRepository.getByUserIdAndBookId(
       character.id,
-      user2.id,
-      book.id
+      user.id,
+      2
     );
 
     expect(result).toBe(null);
