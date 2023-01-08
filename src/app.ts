@@ -8,6 +8,7 @@ import helmet from 'helmet';
 
 import { authRouter } from './routes/auth';
 import { booksRouter } from './routes/books';
+import { charactersRouter } from './routes/characters';
 import { seriesRouter } from './routes/series';
 
 dotenv.config();
@@ -23,3 +24,4 @@ app.use(cookieParser());
 app.use('/api/auth', authRouter);
 app.use('/api', seriesRouter);
 app.use('/api', booksRouter);
+app.use('/api', charactersRouter);
