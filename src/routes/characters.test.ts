@@ -217,10 +217,9 @@ describe('Characters routes', () => {
 
   describe('POST /characters', () => {
     it('fails validation when no firstName sent', async () => {
-      const fakeBook1 = generateMockBook(user);
-      const fakeBook2 = generateMockBook(user);
-      const book1 = await booksRepository.create(fakeBook1);
-      await booksRepository.save(book1);
+      const fakeCharacter1 = generateMockCharacter(series, [book]);
+      const character1 = await charactersRepository.create(fakeCharacter1);
+      await charactersRepository.save(character1);
 
       const response = await request(app)
         .post('/api/characters')
@@ -228,7 +227,7 @@ describe('Characters routes', () => {
           `access_token=username-email-userId-_${user.username}-${user.email}-${user.id}-_expiresIn-; Path=/; HttpOnly`,
         ])
         .send({
-          genre: fakeBook2.genre,
+          type: character1.type,
         });
 
       expect(response.statusCode).toBe(HttpCode.BAD_REQUEST);
