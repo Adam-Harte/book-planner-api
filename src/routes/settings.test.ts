@@ -20,7 +20,7 @@ import {
 } from '../setupTestDb';
 import { HttpCode } from '../types/httpCode';
 
-describe('Characters routes', () => {
+describe('Settings routes', () => {
   let server: any;
   let testDataSource: DataSource;
   let dbBackup: IBackup;
