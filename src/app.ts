@@ -11,6 +11,7 @@ import { booksRouter } from './routes/books';
 import { charactersRouter } from './routes/characters';
 import { seriesRouter } from './routes/series';
 import { settingsRouter } from './routes/settings';
+import { worldsRouter } from './routes/worlds';
 
 dotenv.config();
 
@@ -27,3 +28,4 @@ app.use('/api', seriesRouter);
 app.use('/api', booksRouter);
 app.use('/api', charactersRouter);
 app.use('/api', settingsRouter);
+app.use('/api', worldsRouter);
