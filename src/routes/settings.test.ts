@@ -374,7 +374,7 @@ describe('Settings routes', () => {
       });
     });
 
-    it('gets a character belonging to the user and book', async () => {
+    it('gets a setting belonging to the user and book', async () => {
       const fakeSetting = generateMockSetting({}, [book]);
       const setting = await settingsRepository.create(fakeSetting);
       await settingsRepository.save(setting);
