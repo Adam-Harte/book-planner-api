@@ -4,11 +4,14 @@ import { IBackup } from 'pg-mem';
 import { DataSource } from 'typeorm/data-source';
 
 import { generateMockBook } from '../../mockData/books';
-import { generateMockPlot } from '../../mockData/plots';
+import { generateMockPlotReference } from '../../mockData/plotReferences';
 import { generateMockSeries } from '../../mockData/series';
 import { generateMockUser } from '../../mockData/users';
 import { BooksRepository, getBooksRepository } from '../../repositories/books';
-import { getPlotsRepository, PlotsRepository } from '../../repositories/plots';
+import {
+  getPlotReferencesRepository,
+  PlotReferencesRepository,
+} from '../../repositories/plotReferences';
 import {
   getSeriesRepository,
   SeriesRepository,
@@ -21,18 +24,18 @@ import {
 } from '../../setupTestDb';
 import { HttpCode } from '../../types/httpCode';
 import {
-  createPlot,
-  CreatePlotReqBody,
-  CreatePlotReqQuery,
-} from './createPlot';
+  createPlotReference,
+  CreatePlotReferenceReqBody,
+  CreatePlotReferenceReqQuery,
+} from './createPlotReference';
 
-describe('createPlot', () => {
+describe('createPlotReference', () => {
   let testDataSource: DataSource;
   let dbBackup: IBackup;
   let usersRepository: any;
   let seriesRepository: any;
   let booksRepository: any;
-  let plotsRepository: any;
+  let plotReferencesRepository: any;
   let fakeUser: any;
   let user: any;
   let fakeSeries: any;
@@ -45,7 +48,7 @@ describe('createPlot', () => {
     usersRepository = getUsersRepository(testDataSource);
     seriesRepository = getSeriesRepository(testDataSource);
     booksRepository = getBooksRepository(testDataSource);
-    plotsRepository = getPlotsRepository(testDataSource);
+    plotReferencesRepository = getPlotReferencesRepository(testDataSource);
     SeriesRepository.getByUserIdAndSeriesId = jest
       .fn()
       .mockImplementation((userId: number, seriesId: number) =>
@@ -56,12 +59,16 @@ describe('createPlot', () => {
       .mockImplementation((userId: number, bookId: number) =>
         booksRepository.getByUserIdAndBookId(userId, bookId)
       );
-    PlotsRepository.create = jest
+    PlotReferencesRepository.create = jest
       .fn()
-      .mockImplementation((plot: any) => plotsRepository.create(plot));
-    PlotsRepository.save = jest
+      .mockImplementation((plotRef: any) =>
+        plotReferencesRepository.create(plotRef)
+      );
+    PlotReferencesRepository.save = jest
       .fn()
-      .mockImplementation((plot: any) => plotsRepository.save(plot));
+      .mockImplementation((plotRef: any) =>
+        plotReferencesRepository.save(plotRef)
+      );
     dbBackup = testDb.backup();
   });
 
@@ -83,42 +90,42 @@ describe('createPlot', () => {
   });
 
   it('fails if neither the seriesId or bookId query params are passed', async () => {
-    const fakePlot = generateMockPlot();
+    const fakePlotRef = generateMockPlotReference();
     const req = getMockReq({
       body: {
-        name: fakePlot.name,
-        type: fakePlot.type,
-        description: fakePlot.description,
+        name: fakePlotRef.name,
+        type: fakePlotRef.type,
+        referenceId: fakePlotRef.referenceId,
       },
       userId: '1',
     });
     const { res } = getMockRes();
-    await createPlot(
+    await createPlotReference(
       req as unknown as Request<
         Record<string, any> | undefined,
         unknown,
-        CreatePlotReqBody,
-        CreatePlotReqQuery,
+        CreatePlotReferenceReqBody,
+        CreatePlotReferenceReqQuery,
         Record<string, any>
       >,
       res as Response
     );
 
-    expect(PlotsRepository.create).not.toHaveBeenCalled();
-    expect(PlotsRepository.save).not.toHaveBeenCalled();
+    expect(PlotReferencesRepository.create).not.toHaveBeenCalled();
+    expect(PlotReferencesRepository.save).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(HttpCode.BAD_REQUEST);
     expect(res.json).toHaveBeenCalledWith({
       message: 'At least one of seriesId or bookId query param must be passed.',
     });
   });
 
-  it('should create a new Plot belonging to a series', async () => {
-    const fakePlot = generateMockPlot(series);
+  it('should create a new Plot Reference belonging to a series', async () => {
+    const fakePlotRef = generateMockPlotReference();
     const req = getMockReq({
       body: {
-        name: fakePlot.name,
-        type: fakePlot.type,
-        description: fakePlot.description,
+        name: fakePlotRef.name,
+        type: fakePlotRef.type,
+        referenceId: fakePlotRef.referenceId,
       },
       query: {
         seriesId: '1',
@@ -126,32 +133,32 @@ describe('createPlot', () => {
       userId: '1',
     });
     const { res } = getMockRes();
-    await createPlot(
+    await createPlotReference(
       req as unknown as Request<
         Record<string, any> | undefined,
         unknown,
-        CreatePlotReqBody,
-        CreatePlotReqQuery,
+        CreatePlotReferenceReqBody,
+        CreatePlotReferenceReqQuery,
         Record<string, any>
       >,
       res as Response
     );
 
-    expect(PlotsRepository.create).toHaveBeenCalledWith({
+    expect(PlotReferencesRepository.create).toHaveBeenCalledWith({
       name: req.body.name,
       type: req.body.type,
-      description: req.body.description,
+      referenceId: req.body.referenceId,
       series: expect.objectContaining({
         id: 1,
         name: fakeSeries.name,
         genre: fakeSeries.genre,
       }),
     });
-    expect(PlotsRepository.save).toHaveBeenCalledWith(
+    expect(PlotReferencesRepository.save).toHaveBeenCalledWith(
       expect.objectContaining({
         name: req.body.name,
         type: req.body.type,
-        description: req.body.description,
+        referenceId: req.body.referenceId,
         series: expect.objectContaining({
           id: 1,
           name: fakeSeries.name,
@@ -161,23 +168,23 @@ describe('createPlot', () => {
     );
     expect(res.status).toHaveBeenCalledWith(HttpCode.CREATED);
     expect(res.json).toHaveBeenCalledWith({
-      message: 'Plot created.',
+      message: 'Plot Reference created.',
       data: {
         id: 1,
-        name: fakePlot.name,
-        type: fakePlot.type,
-        description: fakePlot.description,
+        name: fakePlotRef.name,
+        type: fakePlotRef.type,
+        referenceId: fakePlotRef.referenceId,
       },
     });
   });
 
-  it('should create a new Plot belonging to a book', async () => {
-    const fakePlot = generateMockPlot({}, book);
+  it('should create a new Plot Reference belonging to a book', async () => {
+    const fakePlotRef = generateMockPlotReference();
     const req = getMockReq({
       body: {
-        name: fakePlot.name,
-        type: fakePlot.type,
-        description: fakePlot.description,
+        name: fakePlotRef.name,
+        type: fakePlotRef.type,
+        referenceId: fakePlotRef.referenceId,
       },
       query: {
         bookId: '1',
@@ -185,32 +192,32 @@ describe('createPlot', () => {
       userId: '1',
     });
     const { res } = getMockRes();
-    await createPlot(
+    await createPlotReference(
       req as unknown as Request<
         Record<string, any> | undefined,
         unknown,
-        CreatePlotReqBody,
-        CreatePlotReqQuery,
+        CreatePlotReferenceReqBody,
+        CreatePlotReferenceReqQuery,
         Record<string, any>
       >,
       res as Response
     );
 
-    expect(PlotsRepository.create).toHaveBeenCalledWith({
+    expect(PlotReferencesRepository.create).toHaveBeenCalledWith({
       name: req.body.name,
       type: req.body.type,
-      description: req.body.description,
+      referenceId: req.body.referenceId,
       book: expect.objectContaining({
         id: 1,
         name: fakeBook.name,
         genre: fakeBook.genre,
       }),
     });
-    expect(PlotsRepository.save).toHaveBeenCalledWith(
+    expect(PlotReferencesRepository.save).toHaveBeenCalledWith(
       expect.objectContaining({
         name: req.body.name,
         type: req.body.type,
-        description: req.body.description,
+        referenceId: req.body.referenceId,
         book: expect.objectContaining({
           id: 1,
           name: fakeBook.name,
@@ -220,23 +227,23 @@ describe('createPlot', () => {
     );
     expect(res.status).toHaveBeenCalledWith(HttpCode.CREATED);
     expect(res.json).toHaveBeenCalledWith({
-      message: 'Plot created.',
+      message: 'Plot Reference created.',
       data: {
         id: 1,
-        name: fakePlot.name,
-        type: fakePlot.type,
-        description: fakePlot.description,
+        name: fakePlotRef.name,
+        type: fakePlotRef.type,
+        referenceId: fakePlotRef.referenceId,
       },
     });
   });
 
-  it('fails if neither a series or book can be found to attach to the plot', async () => {
-    const fakePlot = generateMockPlot(series, book);
+  it('fails if neither a series or book can be found to attach to the plot reference', async () => {
+    const fakePlotRef = generateMockPlotReference();
     const req = getMockReq({
       body: {
-        name: fakePlot.name,
-        type: fakePlot.type,
-        description: fakePlot.description,
+        name: fakePlotRef.name,
+        type: fakePlotRef.type,
+        referenceId: fakePlotRef.referenceId,
       },
       query: {
         seriesId: '2',
@@ -245,23 +252,23 @@ describe('createPlot', () => {
       userId: '1',
     });
     const { res } = getMockRes();
-    await createPlot(
+    await createPlotReference(
       req as unknown as Request<
         Record<string, any> | undefined,
         unknown,
-        CreatePlotReqBody,
-        CreatePlotReqQuery,
+        CreatePlotReferenceReqBody,
+        CreatePlotReferenceReqQuery,
         Record<string, any>
       >,
       res as Response
     );
 
-    expect(PlotsRepository.create).not.toHaveBeenCalled();
-    expect(PlotsRepository.save).not.toHaveBeenCalled();
+    expect(PlotReferencesRepository.create).not.toHaveBeenCalled();
+    expect(PlotReferencesRepository.save).not.toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(HttpCode.BAD_REQUEST);
     expect(res.json).toHaveBeenCalledWith({
       message:
-        'A plot must be created belonging to one of your series or books.',
+        'A plot reference must be created belonging to one of your series or books.',
     });
   });
 });

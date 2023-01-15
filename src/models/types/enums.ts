@@ -73,7 +73,7 @@ export enum PlotType {
   PLOT_TWIST = 'plot_twist',
 }
 
-export enum PlotReferenceTypes {
+export enum PlotReferenceType {
   MAGIC_SYSTEMS = 'magic_systems',
   WEAPONS = 'weapons',
   BATTLES = 'battles',

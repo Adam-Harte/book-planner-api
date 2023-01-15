@@ -23,6 +23,7 @@ import { Languages } from './languages';
 import { Legends } from './legends';
 import { MagicSystems } from './magicSystems';
 import { Maps } from './maps';
+import { PlotReferences } from './plotReferences';
 import { Plots } from './plots';
 import { Races } from './races';
 import { Religions } from './religions';
@@ -68,6 +69,11 @@ export class Books extends CreatedAndUpdated {
     onDelete: 'SET NULL',
   })
   plots: Relation<Plots>[];
+
+  @OneToMany(() => PlotReferences, (plotReferences) => plotReferences.book, {
+    onDelete: 'SET NULL',
+  })
+  plotReferences: Relation<PlotReferences>[];
 
   @ManyToMany(() => Characters, (characters) => characters.books, {
     onDelete: 'CASCADE',
