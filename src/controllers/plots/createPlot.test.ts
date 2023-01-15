@@ -230,7 +230,7 @@ describe('createPlot', () => {
     });
   });
 
-  it('fails if neither a series or book can be found to attach to the world', async () => {
+  it('fails if neither a series or book can be found to attach to the plot', async () => {
     const fakePlot = generateMockPlot(series, book);
     const req = getMockReq({
       body: {
