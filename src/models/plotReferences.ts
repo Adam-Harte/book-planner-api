@@ -8,10 +8,11 @@ import {
   Relation,
 } from 'typeorm';
 
+import { Books } from './books';
 import { Plots } from './plots';
 import { Series } from './series';
 import { CreatedAndUpdated } from './shared/createdAndUpdated';
-import { PlotReferenceTypes } from './types/enums';
+import { PlotReferenceType } from './types/enums';
 
 @Entity({ name: 'plot_references' })
 export class PlotReferences extends CreatedAndUpdated {
@@ -23,10 +24,10 @@ export class PlotReferences extends CreatedAndUpdated {
 
   @Column({
     type: 'enum',
-    enum: PlotReferenceTypes,
+    enum: PlotReferenceType,
     nullable: true,
   })
-  type: PlotReferenceTypes;
+  type: PlotReferenceType;
 
   @Column({
     name: 'reference_id',
@@ -40,6 +41,12 @@ export class PlotReferences extends CreatedAndUpdated {
   })
   @JoinColumn({ name: 'series_id' })
   series: Relation<Series>;
+
+  @ManyToOne(() => Books, (books) => books.plotReferences, {
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'book_id' })
+  book: Relation<Books>;
 
   @ManyToMany(() => Plots, (plots) => plots.plotReferences, {
     onDelete: 'CASCADE',
