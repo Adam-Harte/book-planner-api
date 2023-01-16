@@ -32,7 +32,6 @@ export class PlotReferences extends CreatedAndUpdated {
   @Column({
     name: 'reference_id',
     type: 'int',
-    unique: true,
   })
   referenceId: number;
 
