@@ -49,20 +49,17 @@ describe('Series repository', () => {
 
     const result = await seriesRepository.getAllByUserId(user.id);
 
-    const { id: series1id, name: series1name, genre: series1genre } = series1;
-    const { id: series2id, name: series2name, genre: series2genre } = series1;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: series1id,
-          name: series1name,
-          genre: series1genre,
+          id: series1.id,
+          name: series1.name,
+          genre: series1.genre,
         }),
         expect.objectContaining({
-          id: series2id,
-          name: series2name,
-          genre: series2genre,
+          id: series2.id,
+          name: series2.name,
+          genre: series2.genre,
         }),
       ])
     );
@@ -93,13 +90,11 @@ describe('Series repository', () => {
       series.id
     );
 
-    const { id: seriesId, name: seriesName, genre: seriesGenre } = series;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: seriesId,
-        name: seriesName,
-        genre: seriesGenre,
+        id: series.id,
+        name: series.name,
+        genre: series.genre,
       })
     );
   });
@@ -115,13 +110,11 @@ describe('Series repository', () => {
       true
     );
 
-    const { id: seriesId, name: seriesName, genre: seriesGenre } = series;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: seriesId,
-        name: seriesName,
-        genre: seriesGenre,
+        id: series.id,
+        name: series.name,
+        genre: series.genre,
         books: [],
         settings: [],
         worlds: [],

@@ -68,33 +68,19 @@ describe('Settings repository', () => {
       user.id,
       series.id
     );
-
-    const {
-      id: setting1id,
-      name: setting1Name,
-      description: setting1Description,
-      type: setting1Type,
-    } = setting1;
-    const {
-      id: setting2id,
-      name: setting2Name,
-      description: setting2Description,
-      type: setting2Type,
-    } = setting2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: setting1id,
-          name: setting1Name,
-          description: setting1Description,
-          type: setting1Type,
+          id: setting1.id,
+          name: setting1.name,
+          description: setting1.description,
+          type: setting1.type,
         }),
         expect.objectContaining({
-          id: setting2id,
-          name: setting2Name,
-          description: setting2Description,
-          type: setting2Type,
+          id: setting2.id,
+          name: setting2.name,
+          description: setting2.description,
+          type: setting2.type,
         }),
       ])
     );
@@ -131,32 +117,19 @@ describe('Settings repository', () => {
       book.id
     );
 
-    const {
-      id: setting1id,
-      name: setting1Name,
-      description: setting1Description,
-      type: setting1Type,
-    } = setting1;
-    const {
-      id: setting2id,
-      name: setting2Name,
-      description: setting2Description,
-      type: setting2Type,
-    } = setting2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: setting1id,
-          name: setting1Name,
-          description: setting1Description,
-          type: setting1Type,
+          id: setting1.id,
+          name: setting1.name,
+          description: setting1.description,
+          type: setting1.type,
         }),
         expect.objectContaining({
-          id: setting2id,
-          name: setting2Name,
-          description: setting2Description,
-          type: setting2Type,
+          id: setting2.id,
+          name: setting2.name,
+          description: setting2.description,
+          type: setting2.type,
         }),
       ])
     );
@@ -187,19 +160,12 @@ describe('Settings repository', () => {
       series.id
     );
 
-    const {
-      id: settingId,
-      name: settingName,
-      description: settingDescription,
-      type: settingType,
-    } = setting;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: settingId,
-        name: settingName,
-        description: settingDescription,
-        type: settingType,
+        id: setting.id,
+        name: setting.name,
+        description: setting.description,
+        type: setting.type,
       })
     );
   });
@@ -216,19 +182,12 @@ describe('Settings repository', () => {
       true
     );
 
-    const {
-      id: settingId,
-      name: settingName,
-      description: settingDescription,
-      type: settingType,
-    } = setting;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: settingId,
-        name: settingName,
-        description: settingDescription,
-        type: settingType,
+        id: setting.id,
+        name: setting.name,
+        description: setting.description,
+        type: setting.type,
         artifacts: [],
         battles: [],
         books: [],
@@ -274,19 +233,12 @@ describe('Settings repository', () => {
       book.id
     );
 
-    const {
-      id: settingId,
-      name: settingName,
-      description: settingDescription,
-      type: settingType,
-    } = setting;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: settingId,
-        name: settingName,
-        description: settingDescription,
-        type: settingType,
+        id: setting.id,
+        name: setting.name,
+        description: setting.description,
+        type: setting.type,
       })
     );
   });
@@ -303,19 +255,12 @@ describe('Settings repository', () => {
       true
     );
 
-    const {
-      id: settingId,
-      name: settingName,
-      description: settingDescription,
-      type: settingType,
-    } = setting;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: settingId,
-        name: settingName,
-        description: settingDescription,
-        type: settingType,
+        id: setting.id,
+        name: setting.name,
+        description: setting.description,
+        type: setting.type,
         artifacts: [],
         battles: [],
         books: [
