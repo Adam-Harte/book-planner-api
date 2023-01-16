@@ -69,32 +69,19 @@ describe('MagicSystems repository', () => {
       series.id
     );
 
-    const {
-      id: magicSystem1id,
-      name: magicSystem1Name,
-      description: magicSystem1Description,
-      rules: magicSystem1Rules,
-    } = magicSystem1;
-    const {
-      id: magicSystem2id,
-      name: magicSystem2Name,
-      description: magicSystem2Description,
-      rules: magicSystem2Rules,
-    } = magicSystem2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: magicSystem1id,
-          name: magicSystem1Name,
-          description: magicSystem1Description,
-          rules: magicSystem1Rules,
+          id: magicSystem1.id,
+          name: magicSystem1.name,
+          description: magicSystem1.description,
+          rules: magicSystem1.rules,
         }),
         expect.objectContaining({
-          id: magicSystem2id,
-          name: magicSystem2Name,
-          description: magicSystem2Description,
-          rules: magicSystem2Rules,
+          id: magicSystem2.id,
+          name: magicSystem2.name,
+          description: magicSystem2.description,
+          rules: magicSystem2.rules,
         }),
       ])
     );
@@ -131,32 +118,19 @@ describe('MagicSystems repository', () => {
       book.id
     );
 
-    const {
-      id: magicSystem1id,
-      name: magicSystem1Name,
-      description: magicSystem1Description,
-      rules: magicSystem1Rules,
-    } = magicSystem1;
-    const {
-      id: magicSystem2id,
-      name: magicSystem2Name,
-      description: magicSystem2Description,
-      rules: magicSystem2Rules,
-    } = magicSystem2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: magicSystem1id,
-          name: magicSystem1Name,
-          description: magicSystem1Description,
-          rules: magicSystem1Rules,
+          id: magicSystem1.id,
+          name: magicSystem1.name,
+          description: magicSystem1.description,
+          rules: magicSystem1.rules,
         }),
         expect.objectContaining({
-          id: magicSystem2id,
-          name: magicSystem2Name,
-          description: magicSystem2Description,
-          rules: magicSystem2Rules,
+          id: magicSystem2.id,
+          name: magicSystem2.name,
+          description: magicSystem2.description,
+          rules: magicSystem2.rules,
         }),
       ])
     );
