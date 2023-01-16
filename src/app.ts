@@ -14,6 +14,7 @@ import { plotReferencesRouter } from './routes/plotReferences';
 import { plotsRouter } from './routes/plots';
 import { seriesRouter } from './routes/series';
 import { settingsRouter } from './routes/settings';
+import { weaponsRouter } from './routes/weapons';
 import { worldsRouter } from './routes/worlds';
 
 dotenv.config();
@@ -35,3 +36,4 @@ app.use('/api', worldsRouter);
 app.use('/api', plotsRouter);
 app.use('/api', plotReferencesRouter);
 app.use('/api', magicSystemsRouter);
+app.use('/api', weaponsRouter);
