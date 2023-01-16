@@ -69,32 +69,19 @@ describe('Plots repository', () => {
       series.id
     );
 
-    const {
-      id: plot1id,
-      name: plot1Name,
-      type: plot1Type,
-      description: plot1Description,
-    } = plot1;
-    const {
-      id: plot2id,
-      name: plot2Name,
-      type: plot2Type,
-      description: plot2Description,
-    } = plot2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: plot1id,
-          name: plot1Name,
-          type: plot1Type,
-          description: plot1Description,
+          id: plot1.id,
+          name: plot1.name,
+          type: plot1.type,
+          description: plot1.description,
         }),
         expect.objectContaining({
-          id: plot2id,
-          name: plot2Name,
-          type: plot2Type,
-          description: plot2Description,
+          id: plot2.id,
+          name: plot2.name,
+          type: plot2.type,
+          description: plot2.description,
         }),
       ])
     );
@@ -128,32 +115,19 @@ describe('Plots repository', () => {
       book.id
     );
 
-    const {
-      id: plot1id,
-      name: plot1Name,
-      type: plot1Type,
-      description: plot1Description,
-    } = plot1;
-    const {
-      id: plot2id,
-      name: plot2Name,
-      type: plot2Type,
-      description: plot2Description,
-    } = plot2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: plot1id,
-          name: plot1Name,
-          type: plot1Type,
-          description: plot1Description,
+          id: plot1.id,
+          name: plot1.name,
+          type: plot1.type,
+          description: plot1.description,
         }),
         expect.objectContaining({
-          id: plot2id,
-          name: plot2Name,
-          type: plot2Type,
-          description: plot2Description,
+          id: plot2.id,
+          name: plot2.name,
+          type: plot2.type,
+          description: plot2.description,
         }),
       ])
     );
@@ -184,19 +158,12 @@ describe('Plots repository', () => {
       series.id
     );
 
-    const {
-      id: plotId,
-      name: plotName,
-      type: plotType,
-      description: plotDescription,
-    } = plot;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotId,
-        name: plotName,
-        type: plotType,
-        description: plotDescription,
+        id: plot.id,
+        name: plot.name,
+        type: plot.type,
+        description: plot.description,
       })
     );
   });
@@ -213,19 +180,12 @@ describe('Plots repository', () => {
       true
     );
 
-    const {
-      id: plotId,
-      name: plotName,
-      type: plotType,
-      description: plotDescription,
-    } = plot;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotId,
-        name: plotName,
-        type: plotType,
-        description: plotDescription,
+        id: plot.id,
+        name: plot.name,
+        type: plot.type,
+        description: plot.description,
         book: null,
         series: expect.objectContaining({
           id: series.id,
@@ -264,19 +224,12 @@ describe('Plots repository', () => {
       book.id
     );
 
-    const {
-      id: plotId,
-      name: plotName,
-      type: plotType,
-      description: plotDescription,
-    } = plot;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotId,
-        name: plotName,
-        type: plotType,
-        description: plotDescription,
+        id: plot.id,
+        name: plot.name,
+        type: plot.type,
+        description: plot.description,
       })
     );
   });
@@ -293,19 +246,12 @@ describe('Plots repository', () => {
       true
     );
 
-    const {
-      id: plotId,
-      name: plotName,
-      type: plotType,
-      description: plotDescription,
-    } = plot;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotId,
-        name: plotName,
-        type: plotType,
-        description: plotDescription,
+        id: plot.id,
+        name: plot.name,
+        type: plot.type,
+        description: plot.description,
         book: expect.objectContaining({
           id: book.id,
           name: book.name,

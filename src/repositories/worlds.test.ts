@@ -69,28 +69,17 @@ describe('Worlds repository', () => {
       series.id
     );
 
-    const {
-      id: world1id,
-      name: world1Name,
-      description: world1Description,
-    } = world1;
-    const {
-      id: world2id,
-      name: world2Name,
-      description: world2Description,
-    } = world2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: world1id,
-          name: world1Name,
-          description: world1Description,
+          id: world1.id,
+          name: world1.name,
+          description: world1.description,
         }),
         expect.objectContaining({
-          id: world2id,
-          name: world2Name,
-          description: world2Description,
+          id: world2.id,
+          name: world2.name,
+          description: world2.description,
         }),
       ])
     );
@@ -124,28 +113,17 @@ describe('Worlds repository', () => {
       book.id
     );
 
-    const {
-      id: world1id,
-      name: world1Name,
-      description: world1Description,
-    } = world1;
-    const {
-      id: world2id,
-      name: world2Name,
-      description: world2Description,
-    } = world2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: world1id,
-          name: world1Name,
-          description: world1Description,
+          id: world1.id,
+          name: world1.name,
+          description: world1.description,
         }),
         expect.objectContaining({
-          id: world2id,
-          name: world2Name,
-          description: world2Description,
+          id: world2.id,
+          name: world2.name,
+          description: world2.description,
         }),
       ])
     );
@@ -176,17 +154,11 @@ describe('Worlds repository', () => {
       series.id
     );
 
-    const {
-      id: worldId,
-      name: worldName,
-      description: worldDescription,
-    } = world;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: worldId,
-        name: worldName,
-        description: worldDescription,
+        id: world.id,
+        name: world.name,
+        description: world.description,
       })
     );
   });
@@ -203,17 +175,11 @@ describe('Worlds repository', () => {
       true
     );
 
-    const {
-      id: worldId,
-      name: worldName,
-      description: worldDescription,
-    } = world;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: worldId,
-        name: worldName,
-        description: worldDescription,
+        id: world.id,
+        name: world.name,
+        description: world.description,
         books: [],
         series: expect.objectContaining({
           id: series.id,
@@ -250,17 +216,11 @@ describe('Worlds repository', () => {
       book.id
     );
 
-    const {
-      id: worldId,
-      name: worldName,
-      description: worldDescription,
-    } = world;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: worldId,
-        name: worldName,
-        description: worldDescription,
+        id: world.id,
+        name: world.name,
+        description: world.description,
       })
     );
   });
@@ -277,17 +237,11 @@ describe('Worlds repository', () => {
       true
     );
 
-    const {
-      id: worldId,
-      name: worldName,
-      description: worldDescription,
-    } = world;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: worldId,
-        name: worldName,
-        description: worldDescription,
+        id: world.id,
+        name: world.name,
+        description: world.description,
         books: [
           expect.objectContaining({
             id: book.id,

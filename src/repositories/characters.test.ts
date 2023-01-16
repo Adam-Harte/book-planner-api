@@ -69,48 +69,27 @@ describe('Characters repository', () => {
       series.id
     );
 
-    const {
-      id: character1id,
-      firstName: character1FirstName,
-      lastName: character1LastName,
-      title: character1Title,
-      type: character1Type,
-      age: character1Age,
-      physicalDescription: character1PhysicalDescription,
-      personalityDescription: character1PersonalityDescription,
-    } = character1;
-    const {
-      id: character2id,
-      firstName: character2FirstName,
-      lastName: character2LastName,
-      title: character2Title,
-      type: character2Type,
-      age: character2Age,
-      physicalDescription: character2PhysicalDescription,
-      personalityDescription: character2PersonalityDescription,
-    } = character2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: character1id,
-          firstName: character1FirstName,
-          lastName: character1LastName,
-          title: character1Title,
-          type: character1Type,
-          age: character1Age,
-          physicalDescription: character1PhysicalDescription,
-          personalityDescription: character1PersonalityDescription,
+          id: character1.id,
+          firstName: character1.firstName,
+          lastName: character1.lastName,
+          title: character1.title,
+          type: character1.type,
+          age: character1.age,
+          physicalDescription: character1.physicalDescription,
+          personalityDescription: character1.personalityDescription,
         }),
         expect.objectContaining({
-          id: character2id,
-          firstName: character2FirstName,
-          lastName: character2LastName,
-          title: character2Title,
-          type: character2Type,
-          age: character2Age,
-          physicalDescription: character2PhysicalDescription,
-          personalityDescription: character2PersonalityDescription,
+          id: character2.id,
+          firstName: character2.firstName,
+          lastName: character2.lastName,
+          title: character2.title,
+          type: character2.type,
+          age: character2.age,
+          physicalDescription: character2.physicalDescription,
+          personalityDescription: character2.personalityDescription,
         }),
       ])
     );
@@ -147,48 +126,27 @@ describe('Characters repository', () => {
       book.id
     );
 
-    const {
-      id: character1id,
-      firstName: character1FirstName,
-      lastName: character1LastName,
-      title: character1Title,
-      type: character1Type,
-      age: character1Age,
-      physicalDescription: character1PhysicalDescription,
-      personalityDescription: character1PersonalityDescription,
-    } = character1;
-    const {
-      id: character2id,
-      firstName: character2FirstName,
-      lastName: character2LastName,
-      title: character2Title,
-      type: character2Type,
-      age: character2Age,
-      physicalDescription: character2PhysicalDescription,
-      personalityDescription: character2PersonalityDescription,
-    } = character2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: character1id,
-          firstName: character1FirstName,
-          lastName: character1LastName,
-          title: character1Title,
-          type: character1Type,
-          age: character1Age,
-          physicalDescription: character1PhysicalDescription,
-          personalityDescription: character1PersonalityDescription,
+          id: character1.id,
+          firstName: character1.firstName,
+          lastName: character1.lastName,
+          title: character1.title,
+          type: character1.type,
+          age: character1.age,
+          physicalDescription: character1.physicalDescription,
+          personalityDescription: character1.personalityDescription,
         }),
         expect.objectContaining({
-          id: character2id,
-          firstName: character2FirstName,
-          lastName: character2LastName,
-          title: character2Title,
-          type: character2Type,
-          age: character2Age,
-          physicalDescription: character2PhysicalDescription,
-          personalityDescription: character2PersonalityDescription,
+          id: character2.id,
+          firstName: character2.firstName,
+          lastName: character2.lastName,
+          title: character2.title,
+          type: character2.type,
+          age: character2.age,
+          physicalDescription: character2.physicalDescription,
+          personalityDescription: character2.personalityDescription,
         }),
       ])
     );
@@ -222,27 +180,16 @@ describe('Characters repository', () => {
       series.id
     );
 
-    const {
-      id: character1id,
-      firstName: character1FirstName,
-      lastName: character1LastName,
-      title: character1Title,
-      type: character1Type,
-      age: character1Age,
-      physicalDescription: character1PhysicalDescription,
-      personalityDescription: character1PersonalityDescription,
-    } = character;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: character1id,
-        firstName: character1FirstName,
-        lastName: character1LastName,
-        title: character1Title,
-        type: character1Type,
-        age: character1Age,
-        physicalDescription: character1PhysicalDescription,
-        personalityDescription: character1PersonalityDescription,
+        id: character.id,
+        firstName: character.firstName,
+        lastName: character.lastName,
+        title: character.title,
+        type: character.type,
+        age: character.age,
+        physicalDescription: character.physicalDescription,
+        personalityDescription: character.personalityDescription,
       })
     );
   });
@@ -259,27 +206,16 @@ describe('Characters repository', () => {
       true
     );
 
-    const {
-      id: character1id,
-      firstName: character1FirstName,
-      lastName: character1LastName,
-      title: character1Title,
-      type: character1Type,
-      age: character1Age,
-      physicalDescription: character1PhysicalDescription,
-      personalityDescription: character1PersonalityDescription,
-    } = character;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: character1id,
-        firstName: character1FirstName,
-        lastName: character1LastName,
-        title: character1Title,
-        type: character1Type,
-        age: character1Age,
-        physicalDescription: character1PhysicalDescription,
-        personalityDescription: character1PersonalityDescription,
+        id: character.id,
+        firstName: character.firstName,
+        lastName: character.lastName,
+        title: character.title,
+        type: character.type,
+        age: character.age,
+        physicalDescription: character.physicalDescription,
+        personalityDescription: character.personalityDescription,
         plots: [],
         groups: [],
         races: [],
@@ -313,27 +249,16 @@ describe('Characters repository', () => {
       book.id
     );
 
-    const {
-      id: character1id,
-      firstName: character1FirstName,
-      lastName: character1LastName,
-      title: character1Title,
-      type: character1Type,
-      age: character1Age,
-      physicalDescription: character1PhysicalDescription,
-      personalityDescription: character1PersonalityDescription,
-    } = character;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: character1id,
-        firstName: character1FirstName,
-        lastName: character1LastName,
-        title: character1Title,
-        type: character1Type,
-        age: character1Age,
-        physicalDescription: character1PhysicalDescription,
-        personalityDescription: character1PersonalityDescription,
+        id: character.id,
+        firstName: character.firstName,
+        lastName: character.lastName,
+        title: character.title,
+        type: character.type,
+        age: character.age,
+        physicalDescription: character.physicalDescription,
+        personalityDescription: character.personalityDescription,
       })
     );
   });
@@ -350,27 +275,16 @@ describe('Characters repository', () => {
       true
     );
 
-    const {
-      id: character1id,
-      firstName: character1FirstName,
-      lastName: character1LastName,
-      title: character1Title,
-      type: character1Type,
-      age: character1Age,
-      physicalDescription: character1PhysicalDescription,
-      personalityDescription: character1PersonalityDescription,
-    } = character;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: character1id,
-        firstName: character1FirstName,
-        lastName: character1LastName,
-        title: character1Title,
-        type: character1Type,
-        age: character1Age,
-        physicalDescription: character1PhysicalDescription,
-        personalityDescription: character1PersonalityDescription,
+        id: character.id,
+        firstName: character.firstName,
+        lastName: character.lastName,
+        title: character.title,
+        type: character.type,
+        age: character.age,
+        physicalDescription: character.physicalDescription,
+        personalityDescription: character.personalityDescription,
         plots: [],
         groups: [],
         races: [],

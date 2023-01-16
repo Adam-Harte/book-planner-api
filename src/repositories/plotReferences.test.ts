@@ -69,32 +69,19 @@ describe('PlotReferences repository', () => {
       series.id
     );
 
-    const {
-      id: plotRef1id,
-      name: plotRef1Name,
-      type: plotRef1Type,
-      referenceId: plotRef1RefId,
-    } = plotRef1;
-    const {
-      id: plotRef2id,
-      name: plotRef2Name,
-      type: plotRef2Type,
-      referenceId: plotRef2RefId,
-    } = plotRef2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: plotRef1id,
-          name: plotRef1Name,
-          type: plotRef1Type,
-          referenceId: plotRef1RefId,
+          id: plotRef1.id,
+          name: plotRef1.name,
+          type: plotRef1.type,
+          referenceId: plotRef1.referenceId,
         }),
         expect.objectContaining({
-          id: plotRef2id,
-          name: plotRef2Name,
-          type: plotRef2Type,
-          referenceId: plotRef2RefId,
+          id: plotRef2.id,
+          name: plotRef2.name,
+          type: plotRef2.type,
+          referenceId: plotRef2.referenceId,
         }),
       ])
     );
@@ -131,32 +118,19 @@ describe('PlotReferences repository', () => {
       book.id
     );
 
-    const {
-      id: plotRef1id,
-      name: plotRef1Name,
-      type: plotRef1Type,
-      referenceId: plotRef1RefId,
-    } = plotRef1;
-    const {
-      id: plotRef2id,
-      name: plotRef2Name,
-      type: plotRef2Type,
-      referenceId: plotRef2RefId,
-    } = plotRef2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: plotRef1id,
-          name: plotRef1Name,
-          type: plotRef1Type,
-          referenceId: plotRef1RefId,
+          id: plotRef1.id,
+          name: plotRef1.name,
+          type: plotRef1.type,
+          referenceId: plotRef1.referenceId,
         }),
         expect.objectContaining({
-          id: plotRef2id,
-          name: plotRef2Name,
-          type: plotRef2Type,
-          referenceId: plotRef2RefId,
+          id: plotRef2.id,
+          name: plotRef2.name,
+          type: plotRef2.type,
+          referenceId: plotRef2.referenceId,
         }),
       ])
     );
@@ -190,19 +164,12 @@ describe('PlotReferences repository', () => {
       series.id
     );
 
-    const {
-      id: plotRefId,
-      name: plotRefName,
-      type: plotRefType,
-      referenceId: plotRefRefId,
-    } = plotRef;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotRefId,
-        name: plotRefName,
-        type: plotRefType,
-        referenceId: plotRefRefId,
+        id: plotRef.id,
+        name: plotRef.name,
+        type: plotRef.type,
+        referenceId: plotRef.referenceId,
       })
     );
   });
@@ -219,19 +186,12 @@ describe('PlotReferences repository', () => {
       true
     );
 
-    const {
-      id: plotRefId,
-      name: plotRefName,
-      type: plotRefType,
-      referenceId: plotRefRefId,
-    } = plotRef;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotRefId,
-        name: plotRefName,
-        type: plotRefType,
-        referenceId: plotRefRefId,
+        id: plotRef.id,
+        name: plotRef.name,
+        type: plotRef.type,
+        referenceId: plotRef.referenceId,
         book: null,
         series: expect.objectContaining({
           id: series.id,
@@ -268,19 +228,12 @@ describe('PlotReferences repository', () => {
       book.id
     );
 
-    const {
-      id: plotRefId,
-      name: plotRefName,
-      type: plotRefType,
-      referenceId: plotRefRefId,
-    } = plotRef;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotRefId,
-        name: plotRefName,
-        type: plotRefType,
-        referenceId: plotRefRefId,
+        id: plotRef.id,
+        name: plotRef.name,
+        type: plotRef.type,
+        referenceId: plotRef.referenceId,
       })
     );
   });
@@ -297,19 +250,12 @@ describe('PlotReferences repository', () => {
       true
     );
 
-    const {
-      id: plotRefId,
-      name: plotRefName,
-      type: plotRefType,
-      referenceId: plotRefRefId,
-    } = plotRef;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: plotRefId,
-        name: plotRefName,
-        type: plotRefType,
-        referenceId: plotRefRefId,
+        id: plotRef.id,
+        name: plotRef.name,
+        type: plotRef.type,
+        referenceId: plotRef.referenceId,
         book: expect.objectContaining({
           id: book.id,
           name: book.name,

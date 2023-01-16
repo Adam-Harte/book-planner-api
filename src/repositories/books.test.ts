@@ -58,20 +58,17 @@ describe('Books repository', () => {
 
     const result = await booksRepository.getAllByUserId(user.id);
 
-    const { id: book1id, name: book1name, genre: book1genre } = book1;
-    const { id: book2id, name: book2name, genre: book2genre } = book2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: book1id,
-          name: book1name,
-          genre: book1genre,
+          id: book1.id,
+          name: book1.name,
+          genre: book1.genre,
         }),
         expect.objectContaining({
-          id: book2id,
-          name: book2name,
-          genre: book2genre,
+          id: book2.id,
+          name: book2.name,
+          genre: book2.genre,
         }),
       ])
     );
@@ -107,20 +104,17 @@ describe('Books repository', () => {
       series.id
     );
 
-    const { id: book1id, name: book1name, genre: book1genre } = book1;
-    const { id: book2id, name: book2name, genre: book2genre } = book2;
-
     expect(result).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: book1id,
-          name: book1name,
-          genre: book1genre,
+          id: book1.id,
+          name: book1.name,
+          genre: book1.genre,
         }),
         expect.objectContaining({
-          id: book2id,
-          name: book2name,
-          genre: book2genre,
+          id: book2.id,
+          name: book2.name,
+          genre: book2.genre,
         }),
       ])
     );
@@ -148,13 +142,11 @@ describe('Books repository', () => {
 
     const result = await booksRepository.getByUserIdAndBookId(user.id, book.id);
 
-    const { id: bookId, name: bookName, genre: bookGenre } = book;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: bookId,
-        name: bookName,
-        genre: bookGenre,
+        id: book.id,
+        name: book.name,
+        genre: book.genre,
       })
     );
   });
@@ -170,13 +162,11 @@ describe('Books repository', () => {
       true
     );
 
-    const { id: bookId, name: bookName, genre: bookGenre } = book;
-
     expect(result).toEqual(
       expect.objectContaining({
-        id: bookId,
-        name: bookName,
-        genre: bookGenre,
+        id: book.id,
+        name: book.name,
+        genre: book.genre,
         settings: [],
         worlds: [],
         characters: [],
