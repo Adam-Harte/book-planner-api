@@ -1,10 +1,10 @@
 import { DataSource } from 'typeorm';
 
 import { AppDataSource } from '../dataSource';
-import { Characters } from '../models/characters';
+import { Transports } from '../models/transports';
 
-export const getCharactersRepository = (dataSource: DataSource) => {
-  return dataSource.getRepository(Characters).extend({
+export const getTransportsRepository = (dataSource: DataSource) => {
+  return dataSource.getRepository(Transports).extend({
     getAllByUserIdAndSeriesId(userId: number, seriesId: number) {
       return this.find({
         where: {
@@ -30,27 +30,19 @@ export const getCharactersRepository = (dataSource: DataSource) => {
       });
     },
     getByUserIdAndSeriesId(
-      characterId: number,
+      transportId: number,
       userId: number,
       seriesId: number,
       rel = false
     ) {
       return this.findOne({
         relations: {
-          plots: rel,
-          groups: rel,
-          races: rel,
-          family: rel,
-          allies: rel,
-          enemies: rel,
-          father: rel,
-          fathersChildren: rel,
-          mother: rel,
-          mothersChildren: rel,
+          books: rel,
+          series: rel,
           setting: rel,
         },
         where: {
-          id: characterId,
+          id: transportId,
           series: {
             id: seriesId,
             user: {
@@ -61,27 +53,19 @@ export const getCharactersRepository = (dataSource: DataSource) => {
       });
     },
     getByUserIdAndBookId(
-      characterId: number,
+      transportId: number,
       userId: number,
       bookId: number,
       rel = false
     ) {
       return this.findOne({
         relations: {
-          plots: rel,
-          groups: rel,
-          races: rel,
-          family: rel,
-          allies: rel,
-          enemies: rel,
-          father: rel,
-          fathersChildren: rel,
-          mother: rel,
-          mothersChildren: rel,
+          books: rel,
+          series: rel,
           setting: rel,
         },
         where: {
-          id: characterId,
+          id: transportId,
           books: {
             id: bookId,
             user: {
@@ -94,4 +78,4 @@ export const getCharactersRepository = (dataSource: DataSource) => {
   });
 };
 
-export const CharactersRepository = getCharactersRepository(AppDataSource);
+export const TransportsRepository = getTransportsRepository(AppDataSource);
