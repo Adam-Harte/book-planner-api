@@ -4,6 +4,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -93,19 +94,37 @@ export class Characters extends Being {
   })
   fathersChildren: Relation<Characters>[];
 
-  @Column({
-    name: 'ally_ids',
-    type: 'simple-array',
-    nullable: true,
+  @ManyToMany(() => Characters, {
+    onDelete: 'CASCADE',
   })
-  allyIds: number[];
+  @JoinTable({
+    name: 'characters_allys',
+    joinColumn: {
+      name: 'character_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'ally_id',
+      referencedColumnName: 'id',
+    },
+  })
+  allies: Relation<Characters>[];
 
-  @Column({
-    name: 'enemy_ids',
-    type: 'simple-array',
-    nullable: true,
+  @ManyToMany(() => Characters, {
+    onDelete: 'CASCADE',
   })
-  enemyIds: number[];
+  @JoinTable({
+    name: 'characters_enemies',
+    joinColumn: {
+      name: 'character_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'enemy_id',
+      referencedColumnName: 'id',
+    },
+  })
+  enemies: Relation<Characters>[];
 
   @ManyToOne(() => Series, (series) => series.characters, {
     onDelete: 'SET NULL',
