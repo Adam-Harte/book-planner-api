@@ -7,6 +7,7 @@ import express from 'express';
 import helmet from 'helmet';
 
 import { authRouter } from './routes/auth';
+import { battlesRouter } from './routes/battles';
 import { booksRouter } from './routes/books';
 import { charactersRouter } from './routes/characters';
 import { magicSystemsRouter } from './routes/magicSystems';
@@ -41,3 +42,4 @@ app.use('/api', magicSystemsRouter);
 app.use('/api', weaponsRouter);
 app.use('/api', technologiesRouter);
 app.use('/api', transportsRouter);
+app.use('/api', battlesRouter);
