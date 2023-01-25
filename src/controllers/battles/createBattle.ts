@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 
+import { BattlesRepository } from '../../repositories/battles';
 import { BooksRepository } from '../../repositories/books';
 import { SeriesRepository } from '../../repositories/series';
-import { BattlesRepository } from '../../repositories/battles';
 import { HttpCode } from '../../types/httpCode';
 
 export interface CreateBattleReqBody {

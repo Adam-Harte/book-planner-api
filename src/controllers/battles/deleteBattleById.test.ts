@@ -3,16 +3,16 @@ import { Request, Response } from 'express';
 import { IBackup } from 'pg-mem';
 import { DataSource } from 'typeorm/data-source';
 
+import { generateMockBattle } from '../../mockData/battles';
 import { generateMockBook } from '../../mockData/books';
 import { generateMockSeries } from '../../mockData/series';
-import { generateMockBattle } from '../../mockData/battles';
 import { generateMockUser } from '../../mockData/users';
+import {
+  BattlesRepository,
+  getBattlesRepository,
+} from '../../repositories/battles';
 import { getBooksRepository } from '../../repositories/books';
 import { getSeriesRepository } from '../../repositories/series';
-import {
-  getBattlesRepository,
-  BattlesRepository,
-} from '../../repositories/battles';
 import { getUsersRepository } from '../../repositories/users';
 import {
   destroyTestDataSource,
