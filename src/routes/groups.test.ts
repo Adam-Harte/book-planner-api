@@ -3,11 +3,11 @@ import request from 'supertest';
 import { DataSource } from 'typeorm/data-source';
 
 import { app } from '../app';
-import { generateMockGroup } from '../mockData/groups';
 import { generateMockBook } from '../mockData/books';
+import { generateMockGroup } from '../mockData/groups';
 import { generateMockSeries } from '../mockData/series';
-import { GroupsRepository, getGroupsRepository } from '../repositories/groups';
 import { BooksRepository, getBooksRepository } from '../repositories/books';
+import { getGroupsRepository, GroupsRepository } from '../repositories/groups';
 import { getSeriesRepository, SeriesRepository } from '../repositories/series';
 import { getUsersRepository } from '../repositories/users';
 import {
