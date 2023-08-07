@@ -451,14 +451,11 @@ describe('Characters routes', () => {
     });
 
     it('fails authorization if no access_token cookie', async () => {
-      const fakeBook1 = generateMockBook(user);
-      const fakeBook2 = generateMockBook(user);
-      const book1 = await booksRepository.create(fakeBook1);
-      await booksRepository.save(book1);
-      const book2 = await booksRepository.create(fakeBook2);
-      await booksRepository.save(book2);
+      const fakeCharacter1 = generateMockCharacter({}, [book]);
+      const character1 = await charactersRepository.create(fakeCharacter1);
+      await charactersRepository.save(character1);
 
-      const response = await request(app).get('/api/books/1');
+      const response = await request(app).get('/api/characters/1?bookId=1');
 
       expect(response.statusCode).toBe(HttpCode.UNAUTHORIZED);
     });
